@@ -82,7 +82,7 @@ export default function AboutPage() {
             <h2 className="text-2xl font-semibold text-gray-900">Quality & Design</h2>
             <p className="text-gray-600">
               All of <span className="bg-gradient-accent text-transparent bg-clip-text">Steelmade's</span> products are created with an aesthetic keeping in mind 
-              the forever evolving 'design thinking' aspect of the Indian corporate/industrial 
+              the forever evolving &apos;design thinking&apos; aspect of the Indian corporate/industrial 
               sectors. Only the finest quality product components are used to create our 
               storage systems, seating systems and modular desk based systems.
             </p>
@@ -113,9 +113,9 @@ export default function AboutPage() {
           className="text-center py-12"
         >
           <blockquote className="text-2xl italic text-gray-700">
-            "On matters of style, swim with the current, on matters of principle, stand like a rock."
+            &ldquo;On matters of style, swim with the current, on matters of principle, stand like a rock.&rdquo;
           </blockquote>
-          <p className="mt-4 text-gray-600">– Thomas Jefferson</p>
+            <p className="mt-4 text-gray-600">&ndash; Thomas Jefferson</p>
         </motion.section>
 
         {/* Team Section */}

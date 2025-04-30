@@ -12,7 +12,6 @@ import {
   navigationMenuTriggerStyle,
 } from "../../components/ui/navigation-menu"
 import { SeriesMetadata } from "../../types"
-import { cn } from "../../lib/utils"
 import { getAllSeries } from "../../lib/services/product-service"
 
 export function Header() {

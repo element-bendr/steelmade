@@ -1,4 +1,3 @@
-import fs from "fs";
 import path from "path";
 import { promises as fsPromises } from "fs";
 
@@ -52,8 +51,7 @@ class LocalStorageService {
    */
   async uploadFile(
     file: Buffer,
-    key: string,
-    _contentType: string
+    key: string
   ): Promise<StorageResult> {
     const filePath = this.getFilePath(key);
     const dirPath = path.dirname(filePath);

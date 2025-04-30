@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface PortfolioItem {
   id: number;
@@ -20,7 +21,15 @@ export function Portfolio() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {portfolioItems.map((item) => (
           <div key={item.id} className="border rounded-lg overflow-hidden shadow-sm">
-            <img src={item.imageUrl} alt={item.title} className="w-full h-48 object-cover" />
+            <div className="relative w-full h-48">
+              <Image 
+                src={item.imageUrl} 
+                alt={item.title} 
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+              />
+            </div>
             <div className="p-4">
               <h3 className="text-xl font-semibold">{item.title}</h3>
               <p className="text-gray-600 mt-2">{item.description}</p>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface Testimonial {
   id: number;
@@ -36,11 +37,15 @@ export function Testimonials() {
         {testimonials.map((testimonial) => (
           <div key={testimonial.id} className="border p-4 rounded shadow-sm">
             <div className="flex items-center mb-2">
-              <img
-                src={testimonial.imageUrl}
-                alt={testimonial.name}
-                className="w-12 h-12 rounded-full mr-2"
-              />
+              <div className="relative w-12 h-12 rounded-full overflow-hidden mr-2">
+                <Image
+                  src={testimonial.imageUrl}
+                  alt={testimonial.name}
+                  fill
+                  className="object-cover"
+                  sizes="48px"
+                />
+              </div>
               <span className="font-semibold">{testimonial.name}</span>
             </div>
             <p className="text-gray-700">{testimonial.feedback}</p>
