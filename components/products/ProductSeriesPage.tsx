@@ -99,7 +99,7 @@ export default function ProductSeriesPage({
             Our {series.title} represents the pinnacle of {productType.slice(0, -1)} technology.
             Each piece is meticulously crafted using premium materials and advanced
             engineering principles to deliver unparalleled quality and functionality.
-            Whether you're furnishing a corporate office or enhancing your home
+            Whether you&apos;re furnishing a corporate office or enhancing your home
             workspace, these {productType} are designed to exceed your expectations.
           </p>
         </div>

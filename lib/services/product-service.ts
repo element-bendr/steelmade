@@ -129,7 +129,8 @@ export async function getRelatedSeries(
   currentId: string
 ): Promise<Record<string, SeriesMetadata>> {
   const allSeries = await getAllSeries(type)
-  const { [currentId]: _, ...related } = allSeries
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { [currentId]: _excluded, ...related } = allSeries
   return related
 }
 
