@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --background-secondary: 0 0% 98%;
+    --text-primary: 222 47% 11%;
+    --text-muted: 220 9% 46%;
+    --accent: 0 74% 42%;
+    --border-light: 220 13% 91%;
+    
+    /* Morphism specific variables */
+    --morphism-bg-opacity: 0.7;
+    --morphism-blur: 10px;
+    --morphism-border-opacity: 0.2;
+    --morphism-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  body {
+    @apply bg-background text-text overflow-x-hidden;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  /* Base morphism styles */
+  .morphism-surface {
+    @apply bg-gradient-morphism backdrop-blur-morphism shadow-morphism;
+    @apply border border-white/20;
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  .morphism-surface-dark {
+    @apply bg-gradient-morphism-dark backdrop-blur-morphism shadow-morphism;
+    @apply border border-white/10;
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  /* Interactive morphism elements */
+  .morphism-card {
+    @apply morphism-surface hover:shadow-morphism-hover;
+    @apply transform hover:-translate-y-1;
+  }
+
+  .morphism-button {
+    @apply bg-gradient-accent text-white backdrop-blur-morphism;
+    @apply border border-accent/20 shadow-morphism;
+    @apply transition-all duration-300 ease-in-out;
+    @apply hover:shadow-morphism-hover hover:border-accent/30;
+    @apply active:transform active:scale-95;
+  }
+
+  /* Navigation morphism */
+  .morphism-nav {
+    @apply morphism-surface sticky top-0 z-50;
+    @apply border-b border-white/20;
+  }
+}
+
+/* Custom animations */
+@keyframes morphism-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-morphism-fade-in {
+  animation: morphism-fade-in 0.5s ease-out forwards;
+}
