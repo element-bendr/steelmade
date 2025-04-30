@@ -30,7 +30,7 @@ export function ProductSeriesInteractiveFeatures({
 
       <div className="order-2 lg:order-1">
         <ImageCarousel 
-          images={[series.coverImage, ...(series.galleryImages || [])]}
+          images={[series.coverImage, ...(series.images || [])]}
           title={series.title}
           aspectRatio="4/3"
           quality={85}
