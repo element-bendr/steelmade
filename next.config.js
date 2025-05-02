@@ -5,6 +5,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'placehold.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
       }
     ],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],

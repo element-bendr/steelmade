@@ -33,19 +33,19 @@ export function FAQ() {
   };
 
   return (
-    <div className="p-8 bg-gray-100">
-      <h2 className="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
+    <div className="p-8 bg-background">
+      <h2 className="text-2xl font-bold mb-4 text-foreground">Frequently Asked Questions</h2>
       <div className="space-y-4">
         {faqItems.map((item) => (
-          <div key={item.id} className="border rounded p-4">
+          <div key={item.id} className="border rounded p-4 bg-card">
             <button
               onClick={() => toggleFAQ(item.id)}
               className="w-full text-left focus:outline-none"
             >
-              <h3 className="text-xl font-semibold">{item.question}</h3>
+              <h3 className="text-xl font-semibold text-foreground">{item.question}</h3>
             </button>
             {activeFAQ === item.id && (
-              <p className="mt-2 text-gray-700">{item.answer}</p>
+              <p className="mt-2 text-muted-foreground">{item.answer}</p>
             )}
           </div>
         ))}

@@ -47,6 +47,17 @@
 ### UI and Styling
 - Use Shadcn UI, Radix, and Tailwind for components and styling.
 - Implement responsive design with Tailwind CSS using a mobile-first approach.
+- Dark mode text styling:
+  - All text should use a white-to-red gradient in dark mode
+  - Exception: The brand name "steelmade" remains solid red
+  - Use custom Tailwind utilities for consistent gradient application
+
+### Development Tools & MCP Integration
+- Utilize MCP servers for development workflow enhancement:
+  - Sequential Thinking: Track development reasoning and decision-making
+  - Memory: Maintain project context and technical decisions
+  - File System: Manage project files and asset operations
+  - GitHub: Handle version control operations and repository management
 
 ### Performance Optimization
 - Minimize use of 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).

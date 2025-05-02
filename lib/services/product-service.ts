@@ -10,7 +10,7 @@ const mockData: Record<ProductType, Record<string, SeriesMetadata>> = {
       title: "Designer Series",
       description: "Premium ergonomic chairs for modern offices",
       seoDescription: "Experience unmatched comfort with our Designer Series office chairs. Premium ergonomic seating solutions crafted for modern workspaces.",
-      coverImage: "/images/chairs/designer-series/cover.jpg",
+      coverImage: "https://via.placeholder.com/800x450/f3f4f6/333.png?text=Designer+Series",
       features: ["Ergonomic Design", "Premium Materials", "Adjustable Support"],
       images: [
         "/images/chairs/designer-series/STEELMADE CHAIRS_page-0002.jpg",
@@ -22,7 +22,7 @@ const mockData: Record<ProductType, Record<string, SeriesMetadata>> = {
       title: "Director Series",
       description: "Executive chairs designed for leadership",
       seoDescription: "Experience the pinnacle of comfort and style with our Director Series chairs. Premium materials and ergonomic design for executive offices.",
-      coverImage: "/images/chairs/director-series/cover.jpg",
+      coverImage: "https://via.placeholder.com/800x450/f3f4f6/333.png?text=Director+Series",
       features: ["Executive Design", "Premium Leather", "Advanced Ergonomics"],
       images: [],
       lastModified: new Date("2025-04-15")
@@ -31,7 +31,7 @@ const mockData: Record<ProductType, Record<string, SeriesMetadata>> = {
       title: "Executive Series",
       description: "Luxurious comfort for professional spaces",
       seoDescription: "Elevate your workspace with our Executive Series chairs. Combining luxury with ergonomic excellence for the modern professional.",
-      coverImage: "/images/chairs/executive-series/cover.jpg",
+      coverImage: "https://via.placeholder.com/800x450/f3f4f6/333.png?text=Executive+Series",
       features: ["Luxury Materials", "Professional Design", "Superior Comfort"],
       images: [],
       lastModified: new Date("2025-04-15")
@@ -40,7 +40,7 @@ const mockData: Record<ProductType, Record<string, SeriesMetadata>> = {
       title: "Ergonomic Series",
       description: "Science-backed comfort for all-day productivity",
       seoDescription: "Maximize comfort and productivity with our Ergonomic Series chairs. Scientifically designed for optimal posture and support.",
-      coverImage: "/images/chairs/ergonomic-series/cover.jpg",
+      coverImage: "https://via.placeholder.com/800x450/f3f4f6/333.png?text=Ergonomic+Series",
       features: ["Advanced Ergonomics", "Adjustable Support", "Health-focused Design"],
       images: [],
       lastModified: new Date("2025-04-15")

@@ -2,6 +2,7 @@ import React from 'react';
 import './globals.css';
 import { Header } from './components/header';
 import { Footer } from './components/footer';
+import { ThemeProvider } from '@/components/providers/theme-provider';
 
 export const metadata = {
   title: 'SteelMade Website',
@@ -15,10 +16,12 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-gray-50">
-        <Header />
-        <main>{children}</main>
-        <Footer />
+      <body className="min-h-screen bg-background dark:text-zinc-50 transition-colors">
+        <ThemeProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

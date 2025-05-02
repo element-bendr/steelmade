@@ -1,62 +1,45 @@
-# Project Memory
+# Design Decisions
 
-## Component Migration (2025-04-29)
-- Migrated SeriesCard to split architecture (Static/Interactive)
-- Created backup of original component
-- Updated all imports and references
-- Added proper TypeScript types
-- Improved component documentation
+## Homepage Styling (Updated 5/1/2025)
+- Added tri-color gradient to main heading (blue-red-white) for visual impact
+- Matches the style pattern established in the About page
+- Uses gradient pattern: `bg-gradient-to-r from-blue-500 via-red-500 to-white`
 
-## SEO Optimization (2025-04-29)
-- Implemented metadata improvements:
-  - OpenGraph tags
-  - Twitter cards
-  - Canonical URLs
-  - Proper alt text
-- Added JSON-LD structured data
-- Created dynamic sitemap generation
-- Configured robots.txt
-- Added lastModified tracking
-- Updated type definitions to support metadata
+## About Page Styling (Updated 5/1/2025)
+- Added tri-color gradient to main heading (blue-red-white) for striking visual impact
+- Implemented consistent gradient branding for "Steelmade" text spans, ensuring brand colors stay visible in both light and dark modes.
+- Changed bullet points in "Our Solutions" list to use brand gradient (from-red-500 to-red-700) for visual consistency.
+- Removed dark mode overrides (`dark:bg-none dark:text-primary-foreground`) to maintain brand identity across themes.
+- Used semantic Tailwind classes for improved maintainability:
+  - `text-foreground` for primary text
+  - `text-muted-foreground` for secondary text
+  - `bg-muted` for section backgrounds
+  - `bg-card` for card backgrounds
+  - `border-border` for borders
 
-## Current Focus
-- SEO monitoring and analytics setup
-- Performance metrics tracking
-- Content freshness tracking
+## Color Scheme
+### Brand Colors
+- Main Headings: `bg-gradient-to-r from-blue-500 via-red-500 to-white`
+- Secondary Gradient: `bg-gradient-to-r from-red-500 to-red-700`
+- Text Treatment: Used with `text-transparent bg-clip-text` for gradient text effect
 
-## Technical Decisions
+### Light Mode
+- Primary Text: text-foreground (base color)
+- Secondary Text: text-muted-foreground (muted color)
+- Background: bg-background (white)
+- Section Background: bg-muted (light gray)
 
-### Split Component Architecture
-- Reason: Better separation of server/client concerns
-- Benefits: 
-  - Improved SEO
-  - Better performance
-  - Cleaner code organization
+### Dark Mode
+- Maintained consistent brand gradient
+- Leveraged semantic color variables for automatic dark mode adaptation
+- Enhanced readability while preserving brand identity
 
-### Metadata Strategy
-- Using Next.js 13 metadata API
-- Dynamic generation based on product data
-- Standardized structure across all product types
+## Component Architecture
+### Team Component
+- Updated to use semantic color classes
+- Aligned with main About page styling
 
-### SEO Implementation
-- Chose article type for OpenGraph (product type not supported)
-- Implemented lastModified tracking for content freshness
-- Prioritized sitemap based on content importance
-
-## Future Considerations
-1. Monitor and adjust SEO performance
-2. Implement content update tracking
-3. Add automated SEO testing
-4. Set up monitoring dashboards
-
-## Issues Encountered
-1. OpenGraph product type not supported in Next.js metadata
-   - Solution: Used article type with product schema in JSON-LD
-2. Type definition updates needed for metadata
-   - Solution: Updated SeriesMetadata to include new fields
-
-## Next Priorities
-1. Set up Google Search Console
-2. Implement analytics tracking
-3. Create monitoring dashboard
-4. Set up automated SEO testing
+# Development Notes
+- Used semantic variables from globals.css for consistent theming
+- Preserved animations and transitions from original implementation
+- Maintained responsive layout with Tailwind's grid system
