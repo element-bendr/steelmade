@@ -5,6 +5,7 @@ import { GradientButton } from "@/components/ui/gradient-button"
 import { ArrowLeft } from "lucide-react"
 import { ImageCarousel } from "@/components/ui/image-carousel"
 import { SeriesMetadata } from "@/types"
+import { getImageAsset } from "@/lib/utils/image-utils"
 
 interface ProductSeriesInteractiveFeaturesProps {
   series: SeriesMetadata
@@ -26,11 +27,11 @@ export function ProductSeriesInteractiveFeatures({
             {backText}
           </GradientButton>
         </Link>
-      </div>
-
-      <div className="order-2 lg:order-1">
-        <ImageCarousel 
-          images={[series.coverImage, ...(series.images || [])]}
+      </div>      <div className="order-2 lg:order-1">        <ImageCarousel 
+          images={[
+            getImageAsset(series.coverImage, series.title), 
+            ...(series.images?.map(img => getImageAsset(img, series.title)) || [])
+          ].filter(Boolean)}
           title={series.title}
           aspectRatio="4/3"
           quality={85}

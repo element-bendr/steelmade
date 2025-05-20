@@ -5,7 +5,7 @@ import { CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { SeriesCardStatic } from "./SeriesCardStatic"
-import { SeriesMetadata } from "@/types"
+import type { SeriesMetadata } from "@/types/collections"
 
 interface SeriesCardInteractiveProps {
   series: SeriesMetadata

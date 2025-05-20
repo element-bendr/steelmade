@@ -1,89 +1,29 @@
 "use client";
-import React, { useState, FormEvent } from 'react';
-import { GradientButton } from '../../components/ui/gradient-button';
+
+import React from 'react';
+import ContactForm from '../../components/contact/contact-form';
+import { OrganizationSchema, BreadcrumbSchema } from '../../components/seo/structured-data';
 
 export default function ContactPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError('');
-    setSuccess('');
-
-    if (!name || !email || !message) {
-      setError('All fields are required.');
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError('Please enter a valid email.');
-      return;
-    }
-
-    // Simulate an API call to submit the form data
-    console.log('Form submitted:', { name, email, message });
-    setSuccess('Thank you for your message. We will get back to you soon.');
-
-    // Clear form fields after submission
-    setName('');
-    setEmail('');
-    setMessage('');
-  };
+  const breadcrumbItems = [
+    { name: "Home", item: "/" },
+    { name: "Contact", item: "/contact" }
+  ];
 
   return (
-    <div className="p-8 max-w-lg mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {error && <p className="text-red-500">{error}</p>}
-        {success && <p className="text-green-500">{success}</p>}
-        <div>
-          <label htmlFor="name" className="block text-lg font-medium text-gray-700">
-            Name
-          </label>
-          <input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="email" className="block text-lg font-medium text-gray-700">
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="message" className="block text-lg font-medium text-gray-700">
-            Message
-          </label>
-          <textarea
-            id="message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            rows={4}
-            required
-          />
-        </div>
-        <GradientButton type="submit" className="mt-4 w-full">
-          Send Message
-        </GradientButton>
-      </form>
+    <div className="container mx-auto px-4 py-12 space-y-8">
+      <h1 className="text-4xl font-bold text-center">Contact Us</h1>
+      <p className="text-lg text-center max-w-3xl mx-auto">
+        Have questions about our steel products or services? Need a custom solution? 
+        Get in touch with our team and we'll get back to you as soon as possible.
+      </p>
+      
+      <ContactForm />
+
+      <div className="hidden">
+        <OrganizationSchema />
+        <BreadcrumbSchema items={breadcrumbItems} />
+      </div>
     </div>
   );
 }

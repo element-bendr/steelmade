@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { default as ProductSeriesPage } from "@/components/products/ProductSeriesPage"
 import { getSeriesById, getRelatedSeries, getAllSeries, getRevalidateTime } from "@/lib/services/product-service"
+import { getImageUrl } from "@/lib/utils/image-utils"
 
 interface DeskSeriesPageProps {
   params: {
@@ -13,8 +14,9 @@ export async function generateMetadata({ params }: DeskSeriesPageProps): Promise
   const series = await getSeriesById("desks", params.seriesId)
   if (!series) return {}
 
-  const title = `${series.title} | Office Desks & Workstations | SteelMade`
+  const title = `${series.title} | Office Desks | SteelMade`
   const description = series.seoDescription
+  const imageUrl = getImageUrl(series.coverImage)
 
   return {
     title,
@@ -23,14 +25,7 @@ export async function generateMetadata({ params }: DeskSeriesPageProps): Promise
       title,
       description,
       type: "article",
-      images: [
-        {
-          url: series.coverImage,
-          width: 1200,
-          height: 630,
-          alt: series.title,
-        }
-      ],
+      images: [imageUrl],
       locale: "en_US",
       siteName: "SteelMade Office Furniture",
       publishedTime: new Date().toISOString(),
@@ -40,7 +35,7 @@ export async function generateMetadata({ params }: DeskSeriesPageProps): Promise
       card: "summary_large_image",
       title,
       description,
-      images: [series.coverImage],
+      images: [imageUrl],
       creator: "@steelmade",
       site: "@steelmade",
     },

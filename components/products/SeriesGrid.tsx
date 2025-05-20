@@ -1,6 +1,6 @@
 import { Suspense } from "react"
 import { SeriesCardInteractive } from "./SeriesCardInteractive"
-import { SeriesMetadata } from "@/types"
+import type { SeriesMetadata } from "@/types/collections"
 
 interface SeriesGridProps {
   seriesData: Record<string, SeriesMetadata>

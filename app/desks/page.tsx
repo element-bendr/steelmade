@@ -1,42 +1,63 @@
-import { Metadata } from "next"
-import { Suspense } from "react"
-import { SeriesGrid } from "@/components/products"
-import { RevalidatingIndicator } from "@/components/ui/revalidating-indicator"
-import { getAllSeries, getRevalidateTime } from "@/lib/services/product-service"
+import { Suspense } from "react";
+import { Metadata } from "next";
+import { getSeriesForCategory } from "@/lib/api/products";
+import ProductCategoryPageLayout from "@/components/products/ProductCategoryPageLayout";
+import { Skeleton } from "@/components/ui/skeleton";
+
+// Revalidate every hour
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Office Desks | SteelMade",
-  description: "Browse our collection of modern office desks designed for productivity. From executive to standing desks, find the perfect workspace solution.",
-}
+  title: "Desks",
+  description: "Discover our premium range of desks, from ergonomic standing desks to classic executive designs. Built for productivity and style.",
+  openGraph: {
+    title: "Desks | SteelMade",
+    description: "Discover our premium range of desks, built for productivity and style.",
+    images: [
+      {
+        url: "/images/desks/collection-cover.jpg",
+        width: 1200,
+        height: 630,
+        alt: "SteelMade Desk Collection",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Desks | SteelMade",
+    description: "Discover our premium range of desks, built for productivity and style.",
+    images: ["/images/desks/collection-cover.jpg"],
+  },
+  alternates: {
+    canonical: "/desks",
+  },
+};
 
 export default async function DesksPage() {
-  const seriesData = await getAllSeries("desks")
+  const seriesData = await getSeriesForCategory("desks");
+
+  const pageTitle = "Desks";
+  const pageDescription = "Discover our premium range of desks, from ergonomic standing desks to classic executive designs. Built for productivity and style.";
+  const breadcrumbItems = [
+    { name: "Home", item: "/" },
+    { name: "Desks", item: "/desks" }
+  ];
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <RevalidatingIndicator />
-      
-      <h1 className="mb-4 text-4xl font-bold">Office Desks</h1>
-      <p className="mb-8 max-w-3xl text-muted-foreground">
-        Explore our range of premium office desks, from executive workstations to 
-        height-adjustable solutions. Each desk is engineered for optimal workflow 
-        and crafted with durability in mind.
-      </p>
-
-      <Suspense fallback={
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {[...Array(6)].map((_, i) => (
-            <div key={i} className="h-[400px] animate-pulse bg-gray-200 rounded-xl" />
-          ))}
-        </div>
-      }>
-        <SeriesGrid 
-          seriesData={seriesData}
-          productType="desks"
-        />
-      </Suspense>
-    </main>
-  )
+    <Suspense fallback={
+      <div className="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
+        {[1, 2, 3].map((i) => (
+          <Skeleton key={i} className="h-[400px] rounded-xl" />
+        ))}
+      </div>
+    }>
+      <ProductCategoryPageLayout
+        category="desks"
+        seriesData={seriesData}
+        pageTitle={pageTitle}
+        pageDescription={pageDescription}
+        breadcrumbItems={breadcrumbItems}
+      />
+    </Suspense>
+  );
 }
-
-export const revalidate = getRevalidateTime()

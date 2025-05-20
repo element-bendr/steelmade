@@ -1,7 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { OptimizedImage } from "@/components/ui/optimized-image"
-import { SeriesMetadata } from "@/types"
+import type { SeriesMetadata } from "@/types/collections" // Changed path
+import type { ImageAsset } from "@/types/image-types" // Added import for ImageAsset
+import { getImageUrl, getImageWidth, getImageHeight } from "@/lib/utils/image-utils"
 
 interface SeriesCardStaticProps {
   series: SeriesMetadata
@@ -9,15 +11,19 @@ interface SeriesCardStaticProps {
 }
 
 export function SeriesCardStatic({ series, className }: SeriesCardStaticProps) {
+  // Ensure coverImage is treated as ImageAsset
+  const coverImage = series.coverImage as ImageAsset;
+
   return (
     <div className={className}>
-      <Card className="morphism-card group flex flex-col overflow-hidden">
+      <Card className="morphism-card group flex flex-col overflow-hidden">        
         <div className="relative aspect-video overflow-hidden rounded-t-lg before:absolute before:inset-0 before:bg-gradient-morphism before:opacity-0">
           <OptimizedImage
-            src={series.coverImage}
+            src={getImageUrl(coverImage)} // Use the asserted coverImage
             alt={series.title}
-            aspectRatio="16/9"
-            className="object-cover"
+            width={getImageWidth(coverImage)} // Use the asserted coverImage
+            height={getImageHeight(coverImage)} // Use the asserted coverImage
+            className="object-cover w-full h-full"
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
           />
         </div>

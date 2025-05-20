@@ -1,29 +1,45 @@
 @echo off
+setlocal enabledelayedexpansion
 
-REM Create directories for chairs
-mkdir "public\images\chairs\director-series"
-mkdir "public\images\chairs\executive-series"
-mkdir "public\images\chairs\ergonomic-series"
+:: Check if ImageMagick is installed
+where magick >nul 2>nul
+if %ERRORLEVEL% NEQ 0 (
+    echo ERROR: ImageMagick is not installed or not in PATH
+    echo Please install ImageMagick from https://imagemagick.org/
+    pause
+    exit /b 1
+)
 
-REM Create directories for desks
-mkdir "public\images\desks\series-a"
-mkdir "public\images\desks\series-b"
-mkdir "public\images\desks\series-c"
+:: Create base directories
+mkdir "public\images\products\chairs" 2>nul
+mkdir "public\images\products\desks" 2>nul
+mkdir "public\images\products\storage" 2>nul
 
-REM Create directories for storage
-mkdir "public\images\storage\series-a"
-mkdir "public\images\storage\series-b"
-mkdir "public\images\storage\series-c"
+:: Function to create images for a category
+for %%c in (chairs desks storage) do (
+    echo Creating images for %%c...
+    
+    :: Create category placeholder
+    magick -size 1200x630 xc:gray -gravity center -pointsize 60 ^
+        -fill white -draw "text 0,0 '%%c Collection'" ^
+        -quality 80 "public\images\products\%%c\placeholder.webp" ^
+        || echo Error creating placeholder for %%c
+    
+    :: Create product variants
+    for %%v in (standard premium executive compact lite comfort modern classic) do (
+        echo Creating %%v-%%c...
+        magick -size 800x600 xc:gray -gravity center -pointsize 40 ^
+            -fill white -draw "text 0,-20 '%%v %%c'" ^
+            -pointsize 20 -draw "text 0,20 'Product Image Placeholder'" ^
+            -quality 80 "public\images\products\%%c\%%v-%%c.webp" ^
+            || echo Error creating %%v-%%c
+    )
+)
 
-REM Copy placeholder image to each directory
-copy "public\images\wepik-export-20230426125449.png" "public\images\chairs\director-series\cover.jpg"
-copy "public\images\wepik-export-20230426125449.png" "public\images\chairs\executive-series\cover.jpg"
-copy "public\images\wepik-export-20230426125449.png" "public\images\chairs\ergonomic-series\cover.jpg"
-copy "public\images\wepik-export-20230426125449.png" "public\images\desks\series-a\cover.jpg"
-copy "public\images\wepik-export-20230426125449.png" "public\images\desks\series-b\cover.jpg"
-copy "public\images\wepik-export-20230426125449.png" "public\images\desks\series-c\cover.jpg"
-copy "public\images\wepik-export-20230426125449.png" "public\images\storage\series-a\cover.jpg"
-copy "public\images\wepik-export-20230426125449.png" "public\images\storage\series-b\cover.jpg"
-copy "public\images\wepik-export-20230426125449.png" "public\images\storage\series-c\cover.jpg"
+if exist "public\images\products\chairs\standard-chairs.webp" (
+    echo Placeholder images have been created successfully!
+) else (
+    echo ERROR: Failed to create images. Please check if ImageMagick is working correctly.
+)
 
-echo All directories created and placeholder images copied successfully!
+pause

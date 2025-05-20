@@ -1,85 +1,106 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { useState, useCallback } from "react"
-import { cn } from "@/lib/utils"
+import Image, { ImageProps } from "next/image";
+import { useState } from "react";
+import { twMerge } from "tailwind-merge";
+import { fetchImage } from "@/lib/utils/fetch-retry";
+import { ImageAsset } from "@/types/image-types";
+import { getImageUrl } from "@/lib/utils/image-utils";
 
-interface OptimizedImageProps {
-  src: string
-  alt: string
-  width?: number
-  height?: number
-  className?: string
-  priority?: boolean
-  quality?: number
-  sizes?: string
-  aspectRatio?: string
-  onError?: (error: Error) => void
+interface OptimizedImageProps extends Omit<ImageProps, "src"> {
+  src: string | ImageAsset;
+  fallbackSrc?: string;
+  aspectRatio?: string;
 }
 
-const defaultBlurDataURL = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZjNmNGY2Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZWJlY2YwIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkKSIvPjwvc3ZnPg=="
+const DEFAULT_DIMENSIONS = {
+  width: 800,
+  height: 600
+};
 
-export function OptimizedImage({
-  src,
+export function OptimizedImage({ 
+  src, 
+  fallbackSrc = "/images/collections/placeholder-collection.webp",
+  showLoadingState = true,
   alt,
-  width = 1080,
-  height = 720,
-  className,
-  priority = false,
-  quality = 85,
-  sizes = "(min-width: 1280px) 33vw, (min-width: 1024px) 50vw, 100vw",
-  aspectRatio = "4/3",
-  onError,
-}: OptimizedImageProps) {
-  const [isLoading, setLoading] = useState(true)
-  const [hasError, setHasError] = useState(false)
+  aspectRatio,
+  className = "",
+  ...props 
+}: OptimizedImageProps & { showLoadingState?: boolean; className?: string }) {
+  const imageUrl = getImageUrl(src);
+  const isLocalImage = imageUrl.startsWith('/');
+  const [imageSrc, setImageSrc] = useState(imageUrl);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [localRetryCount, setLocalRetryCount] = useState(0);
 
-  const handleError = useCallback((error: Error) => {
-    setHasError(true)
-    onError?.(error)
-  }, [onError])
+  // Debug log
+  console.log('Attempting to load image:', { imageUrl, imageSrc, isLocalImage });
 
-  const handleLoad = useCallback(() => {
-    setLoading(false)
-  }, [])
+  const handleImageLoad = () => {
+    setIsLoading(false);
+    setError(false);
+  };
 
-  if (hasError) {
-    return (
-      <div 
-        className={cn(
-          "bg-gray-100 flex items-center justify-center",
-          className
-        )}
-        style={{ aspectRatio }}
-      >
-        <span className="text-sm text-gray-500">Failed to load image</span>
-      </div>
-    )
-  }
+  const handleImageError = async () => {
+    console.error('Image failed to load:', { imageUrl, imageSrc, isLocalImage });
+    
+    if (isLocalImage) {
+      if (localRetryCount < 2) { // Limit local retries
+        setLocalRetryCount(prev => prev + 1);
+        const newSrc = `${imageUrl}?v=${Date.now()}`;
+        console.log(`Retrying local image (attempt ${localRetryCount + 1}):`, newSrc);
+        setImageSrc(newSrc);
+        return;
+      } else {
+        console.warn('Local image failed after multiple retries, using fallback:', { imageUrl });
+      }
+    } else {
+      try {
+        // Only use fetch retry mechanism for remote images
+        const response = await fetchImage(imageUrl);
+        if (response.ok) {
+          const newSrc = `${imageUrl}?retry=${Date.now()}`;
+          console.log('Retrying remote image with:', newSrc);
+          setImageSrc(newSrc);
+          // Reset loading state for the new attempt if it was a remote image that failed initially
+          // and is now being retried.
+          setIsLoading(true); 
+          setError(false);
+          return;
+        }
+        console.error('Fetch response not ok:', response.status, response.statusText);
+      } catch (err) {
+        console.error("Error fetching image:", { error: err, url: imageUrl });
+      }
+    }
+
+    // If all retries fail or for non-retryable local errors, show fallback
+    setError(true);
+    setImageSrc(fallbackSrc);
+    setIsLoading(false);
+  };
+
+  const combinedClassName = twMerge(`
+    transition-all duration-300 ease-in-out
+    ${isLoading ? "opacity-0" : "opacity-100"}
+    ${error ? "bg-gray-100" : ""}
+    ${className}
+  `);
 
   return (
-    <div 
-      className="overflow-hidden"
-      style={{ aspectRatio }}
-    >
+    <div className="relative overflow-hidden">
+      {showLoadingState && isLoading && (
+        <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-gray-200 to-gray-300" />
+      )}
       <Image
-        src={src}
+        src={imageSrc}
         alt={alt}
-        width={width}
-        height={height}
-        priority={priority}
-        quality={quality}
-        sizes={sizes}
-        placeholder="blur"
-        blurDataURL={defaultBlurDataURL}
-        className={cn(
-          "duration-700 ease-in-out will-change-[transform,filter]",
-          isLoading ? "scale-110 blur-2xl grayscale" : "scale-100 blur-0 grayscale-0",
-          className
-        )}
-        onLoad={handleLoad}
-        onError={() => handleError(new Error(`Failed to load image: ${src}`))}
+        className={combinedClassName}
+        onLoad={handleImageLoad}
+        onError={handleImageError}
+        {...props}
       />
     </div>
-  )
+  );
 }

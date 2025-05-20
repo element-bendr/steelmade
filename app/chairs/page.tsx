@@ -1,42 +1,63 @@
-import { Metadata } from "next"
-import { Suspense } from "react"
-import { SeriesGrid } from "@/components/products"
-import { RevalidatingIndicator } from "@/components/ui/revalidating-indicator"
-import { getAllSeries, getRevalidateTime } from "@/lib/services/product-service"
+import { Suspense } from "react";
+import { Metadata } from "next";
+import { getSeriesForCategory } from "@/lib/api/products";
+import ProductCategoryPageLayout from "@/components/products/ProductCategoryPageLayout";
+import { Skeleton } from "@/components/ui/skeleton";
+
+// Revalidate every hour
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Office Chairs | SteelMade",
-  description: "Explore our range of ergonomic office chairs designed for comfort and productivity. Find the perfect chair for your workspace.",
-}
+  title: "Chairs",
+  description: "Explore our diverse collection of high-quality chairs, designed for comfort, style, and durability. Find the perfect seating solution for your home or office.",
+  openGraph: {
+    title: "Chairs | SteelMade",
+    description: "Explore our diverse collection of high-quality chairs.",
+    images: [
+      {
+        url: "/images/chairs/collection-cover.jpg",
+        width: 1200,
+        height: 630,
+        alt: "SteelMade Chair Collection",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Chairs | SteelMade",
+    description: "Explore our diverse collection of high-quality chairs.",
+    images: ["/images/chairs/collection-cover.jpg"],
+  },
+  alternates: {
+    canonical: "/chairs",
+  },
+};
 
 export default async function ChairsPage() {
-  const seriesData = await getAllSeries("chairs")
+  const seriesData = await getSeriesForCategory("chairs");
+
+  const pageTitle = "Chairs";
+  const pageDescription = "Explore our diverse collection of high-quality chairs, designed for comfort, style, and durability. Find the perfect seating solution for your home or office.";
+  const breadcrumbItems = [
+    { name: "Home", item: "/" },
+    { name: "Chairs", item: "/chairs" }
+  ];
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <RevalidatingIndicator />
-      
-      <h1 className="mb-4 text-4xl font-bold">Office Chairs</h1>
-      <p className="mb-8 max-w-3xl text-muted-foreground">
-        Discover our collection of ergonomically designed office chairs. Each series 
-        is crafted to provide optimal comfort and support for long working hours, 
-        combining innovative design with premium materials.
-      </p>
-
-      <Suspense fallback={
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {[...Array(6)].map((_, i) => (
-            <div key={i} className="h-[400px] animate-pulse bg-gray-200 rounded-xl" />
-          ))}
-        </div>
-      }>
-        <SeriesGrid 
-          seriesData={seriesData}
-          productType="chairs"
-        />
-      </Suspense>
-    </main>
-  )
+    <Suspense fallback={
+      <div className="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
+        {[1, 2, 3, 4].map((i) => (
+          <Skeleton key={i} className="h-[400px] rounded-xl" />
+        ))}
+      </div>
+    }>
+      <ProductCategoryPageLayout
+        category="chairs"
+        seriesData={seriesData}
+        pageTitle={pageTitle}
+        pageDescription={pageDescription}
+        breadcrumbItems={breadcrumbItems}
+      />
+    </Suspense>
+  );
 }
-
-export const revalidate = getRevalidateTime()

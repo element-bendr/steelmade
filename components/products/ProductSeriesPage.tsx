@@ -1,126 +1,83 @@
-import { Suspense } from "react"
-import { Badge } from "@/components/ui/badge"
-import { SeriesMetadata } from "@/types"
-import { SeriesGrid } from "./SeriesGrid"
-import { capitalize } from "@/lib/utils"
-import { ProductSeriesInteractiveFeatures } from "./ProductSeriesInteractiveFeatures"
-import { RevalidatingIndicator } from "@/components/ui/revalidating-indicator"
-import { ProductType } from "@/lib/services/product-service"
-import Script from "next/script"
+"use client"
+
+import { CollectionCarousel } from "@/components/collections/CollectionCarousel" // Keep for now, might remove later
+import { ProductGrid } from "@/components/products/ProductGrid"
+import { FeaturedProductsDisplay } from "@/components/products/FeaturedProductsDisplay" // Import the new component
+import type { SeriesMetadata, ProductCategory } from "@/types/collections"
+import type { ProductData } from "@/types/products"
 
 interface ProductSeriesPageProps {
   series: SeriesMetadata
-  productType: ProductType
-  backLink: string
-  backText: string
-  relatedSeriesData?: Record<string, SeriesMetadata>
+  products: ProductData[]
+  category: ProductCategory
+  seriesId: string
 }
 
 export default function ProductSeriesPage({ 
   series, 
-  productType, 
-  backLink,
-  backText,
-  relatedSeriesData
+  products,
+  category, // Keep category if needed by other parts or for future use
+  seriesId // Keep seriesId if needed
 }: ProductSeriesPageProps) {
-  // Construct the JSON-LD data
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: series.title,
-    description: series.description,
-    image: series.coverImage,
-    brand: {
-      "@type": "Brand",
-      name: "SteelMade"
-    },
-    category: `Office ${capitalize(productType)}`,
-    manufacturer: {
-      "@type": "Organization",
-      name: "SteelMade",
-      url: "https://steelmade.com"
-    },
-    offers: {
-      "@type": "AggregateOffer",
-      availability: "https://schema.org/InStock",
-      priceCurrency: "USD",
-      priceValidUntil: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString(),
-      itemCondition: "https://schema.org/NewCondition"
-    }
-  }
+  // Determine featured products - e.g., first 4 products or based on a flag
+  // For now, let's assume the first 4 are featured. This can be made more sophisticated.
+  const featuredProducts = products.slice(0, 4);
+  const remainingProducts = products.slice(4);
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <Script
-        id={`product-jsonld-${series.title}`}
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      
-      <RevalidatingIndicator />
-      
-      <h1 className="mb-4 text-4xl font-bold">{series.title}</h1>
-      <p className="max-w-3xl text-muted-foreground">{series.description}</p>
-
-      <div className="mb-12 grid gap-8 lg:grid-cols-2">
-        {/* Left side: Interactive Features */}
-        <Suspense fallback={
-          <div className="h-[400px] animate-pulse bg-gray-200 rounded-xl" />
-        }>
-          <ProductSeriesInteractiveFeatures
-            series={series}
-            backLink={backLink}
-            backText={backText}
-          />
-        </Suspense>
-
-        {/* Right side: Product info */}
-        <div className="order-1 lg:order-2">
-          <h2 className="mb-4 text-2xl font-semibold">Key Features</h2>
-          <div className="mb-6 flex flex-wrap gap-2">
-            {series.features.map((feature) => (
-              <Badge 
-                key={feature} 
-                variant="secondary" 
-                className="text-base"
-              >
-                {feature}
-              </Badge>
-            ))}
-          </div>
-        </div>
+    <div className="container py-12 space-y-12"> {/* Increased spacing */}
+      {/* Series Title and Description */}
+      <div className="text-center mb-8"> {/* Centered title and description */}
+        <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">{series.title}</h1>
+        <p className="mt-4 text-xl text-muted-foreground">{series.description}</p>
       </div>
-
-      {/* About section */}
-      <section className="mb-16">
-        <h2 className="mb-6 text-2xl font-semibold">About {series.title}</h2>
-        <div className="prose prose-slate max-w-none">
-          <p className="text-muted-foreground">
-            Our {series.title} represents the pinnacle of {productType.slice(0, -1)} technology.
-            Each piece is meticulously crafted using premium materials and advanced
-            engineering principles to deliver unparalleled quality and functionality.
-            Whether you&apos;re furnishing a corporate office or enhancing your home
-            workspace, these {productType} are designed to exceed your expectations.
-          </p>
-        </div>
-      </section>
-
-      {/* Related Products */}
-      {relatedSeriesData && Object.keys(relatedSeriesData).length > 0 && (
-        <Suspense fallback={
-          <div className="h-[300px] animate-pulse bg-gray-200 rounded-xl" />
-        }>
-          <section className="mb-16">
-            <h2 className="mb-6 text-2xl font-semibold">
-              Explore Other {capitalize(productType)}
-            </h2>
-            <SeriesGrid 
-              seriesData={relatedSeriesData}
-              productType={productType}
-            />
-          </section>
-        </Suspense>
+      
+      {/* Featured Products Section */}
+      {featuredProducts.length > 0 && (
+        <FeaturedProductsDisplay 
+          products={featuredProducts} 
+          title={`Featured ${series.title}`}
+          category={category} // Pass category
+          seriesId={seriesId} // Pass seriesId
+        />
       )}
-    </main>
+      
+      {/* Main Product Grid Section */}
+      {remainingProducts.length > 0 && (
+        <section>
+          <h2 className="text-3xl font-bold tracking-tight mb-6">
+            All {series.title}
+          </h2>
+          <ProductGrid products={remainingProducts} />
+        </section>
+      )}
+
+      {series.features && series.features.length > 0 && (
+        <div className="mt-12">
+          <h2 className="text-2xl font-semibold mb-4">Features</h2>
+          <ul className="list-disc list-inside space-y-2">
+            {series.features.map((feature, index) => (
+              <li key={index} className="text-muted-foreground">
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      
+      {/* {series.specifications && Object.keys(series.specifications).length > 0 && (
+        <div className="mt-12">
+          <h2 className="text-2xl font-semibold mb-4">Specifications</h2>
+          <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
+            {Object.entries(series.specifications).map(([key, value]) => (
+              <div key={key} className="flex justify-between border-b pb-2">
+                <dt className="font-medium">{key}</dt>
+                <dd className="text-muted-foreground">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )} */}
+    </div>
   )
 }

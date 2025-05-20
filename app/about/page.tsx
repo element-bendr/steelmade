@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Team } from '../components/team';
+import { Team } from '@/components/team';
 import { motion } from 'framer-motion';
 
 export default function AboutPage() {

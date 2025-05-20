@@ -5,9 +5,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { OptimizedImage } from "./optimized-image"
 import { useCarouselDrag } from "@/hooks/use-carousel-drag"
+import { ImageAsset } from "@/types"
 
 interface ImageCarouselProps {
-  images: string[]
+  images: ImageAsset[]
   title: string
   className?: string
   aspectRatio?: string
@@ -88,10 +89,9 @@ export function ImageCarousel({
           isDragging && "cursor-grabbing"
         )}
         {...handlers}
-      >
-        {images.map((image, index) => (
+      >      {images.map((image, index) => (
           <div
-            key={image}
+            key={image.url}
             className={cn(
               "absolute h-full w-full transform transition-transform duration-300 ease-out",
               index === currentIndex ? "translate-x-0" : index < currentIndex ? "-translate-x-full" : "translate-x-full"
@@ -99,13 +99,15 @@ export function ImageCarousel({
             style={{ aspectRatio }}
           >
             <OptimizedImage
-              src={image}
+              src={image.url}
               alt={`${title} - Image ${index + 1}`}
               className="object-cover"
               priority={index === 0}
               quality={quality}
               sizes="(min-width: 1024px) 50vw, 100vw"
               aspectRatio={aspectRatio}
+              width={image.width}
+              height={image.height}
             />
             <div className="absolute bottom-0 left-0 right-0 backdrop-blur-md bg-black/30 text-white px-4 py-2 transition-opacity">
               <p className="text-sm font-medium">
