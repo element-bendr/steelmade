@@ -4,7 +4,7 @@ import Link from "next/link"
 import { GradientButton } from "@/components/ui/gradient-button"
 import { ArrowLeft } from "lucide-react"
 import { ImageCarousel } from "@/components/ui/image-carousel"
-import { SeriesMetadata } from "@/types"
+import { SeriesMetadata } from "@/types/index" // Changed from @/types
 import { getImageAsset } from "@/lib/utils/image-utils"
 import { ImageAsset } from "@/types/image-types";
 

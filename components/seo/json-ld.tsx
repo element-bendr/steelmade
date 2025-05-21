@@ -2,7 +2,7 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
-import { BreadcrumbItem } from "@/types";
+import { BreadcrumbItem } from "@/components/ui/Breadcrumbs";
 
 interface JsonLdProps {
   data: Record<string, any> | Record<string, any>[];
@@ -90,7 +90,7 @@ export function BreadcrumbSchema({ items }: BreadcrumbProps) {
       "@type": "ListItem",
       "position": index + 1,
       "name": item.name,
-      "item": item.item
+      "item": item.href || "" // Use item.href and fallback to empty string if undefined
     }))
   };
 
