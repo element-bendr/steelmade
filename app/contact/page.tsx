@@ -15,7 +15,7 @@ export default function ContactPage() {
       <h1 className="text-4xl font-bold text-center">Contact Us</h1>
       <p className="text-lg text-center max-w-3xl mx-auto">
         Have questions about our steel products or services? Need a custom solution? 
-        Get in touch with our team and we'll get back to you as soon as possible.
+        Get in touch with our team and we&apos;ll get back to you as soon as possible.
       </p>
       
       <ContactForm />

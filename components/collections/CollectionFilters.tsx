@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductType } from "@/types";
+import { ProductType } from "@/types/products";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {

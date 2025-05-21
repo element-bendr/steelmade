@@ -6,7 +6,7 @@ export { Collapsible, CollapsibleContent, CollapsibleTrigger } from './collapsib
 export * from './custom-icons'
 export { GradientButton } from './gradient-button'
 export { ImageCarousel } from './image-carousel'
-export { default as Input } from './input'
+export * from './input'
 export { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from './navigation-menu'
 export { OptimizedImage } from './optimized-image'
 export { RevalidatingIndicator } from './revalidating-indicator'

@@ -1,4 +1,4 @@
-import type { ProductType } from "@/types";
+import type { ProductType } from "@/types/products";
 import type { SubCategoryCollection } from "@/types/collections";
 
 // Event types that can be emitted

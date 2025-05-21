@@ -1,8 +1,5 @@
 // Product types and interfaces
 
-// Product categories: chairs, desks, storage
-export type ProductType = "chairs" | "desks" | "storage";
-
 // Series metadata with extended product collection
 export interface SeriesMetadata {
   id: string;

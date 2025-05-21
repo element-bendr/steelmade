@@ -41,7 +41,7 @@ const PageSkeleton = () => (
 );
 
 const RackingSystemsPage = async () => {
-  const category = 'racking';
+  const category = 'racking-systems';
   const seriesData = await getSeriesForCategory(category);
 
   const pageTitle = 'Racking Systems';

@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import Input from '@/components/ui/input';
-import Textarea from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
+import Textarea from '@/components/ui/textarea'; // Reverted to default import
 import { useToast } from '@/components/ui/use-toast';
 
 export default function ContactForm() {

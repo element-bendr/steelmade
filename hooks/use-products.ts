@@ -9,22 +9,24 @@ export function useProducts(category: ProductCategory, seriesId: string) {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    async function fetchProducts() {
-      try {
-        const response = await fetch(`/api/products/${category}/${seriesId}`)
-        if (!response.ok) throw new Error('Failed to fetch products')
-        const data = await response.json()
-        setProducts(data)
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred')
-      } finally {
-        setIsLoading(false)
-      }
+  const fetchProducts = async () => {
+    setIsLoading(true)
+    setError(null)
+    try {
+      const response = await fetch(`/api/products/${category}/${seriesId}`)
+      if (!response.ok) throw new Error('Failed to fetch products')
+      const data = await response.json()
+      setProducts(data)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred')
+    } finally {
+      setIsLoading(false)
     }
+  }
 
+  useEffect(() => {
     fetchProducts()
-  }, [category, seriesId])
+  }, [category, seriesId, fetchProducts]) // Added fetchProducts to the dependency array
 
-  return { products, isLoading, error } }
+  return { products, isLoading, error, refetch: fetchProducts }
 }

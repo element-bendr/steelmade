@@ -107,24 +107,28 @@ async function processAndUploadImages(): Promise<ImageMapping[]> {
     const paths: string[] = [];
     
     Object.entries(collections).forEach(([category, subcategories]) => {
-      Object.entries(subcategories).forEach(([series, data]) => {
-        // Collect cover image
-        if (data.metadata.coverImage?.url) {
-          paths.push(data.metadata.coverImage.url);
-        }
-        
-        // Collect metadata images
-        data.metadata.images?.forEach(img => {
-          if (img.url) paths.push(img.url);
-        });
-        
-        // Collect product images
-        Object.values(data.products).forEach(product => {
-          product.images?.forEach(img => {
+      if (typeof subcategories === 'object' && subcategories !== null) {
+        Object.entries(subcategories).forEach(([series, data]) => {
+          // Collect cover image
+          if (data.metadata.coverImage?.url) {
+            paths.push(data.metadata.coverImage.url);
+          }
+          
+          // Collect metadata images
+          data.metadata.images?.forEach(img => {
             if (img.url) paths.push(img.url);
           });
+          
+          // Collect product images
+          if (data.products) {
+            Object.values(data.products).forEach(product => {
+              product.images?.forEach(img => {
+                if (img.url) paths.push(img.url);
+              });
+            });
+          }
         });
-      });
+      }
     });
     
     return paths;

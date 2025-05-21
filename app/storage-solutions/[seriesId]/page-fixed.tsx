@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { default as ProductSeriesPage } from "@/components/products/ProductSeriesPage"
-import { getSeriesById, getRelatedSeries, getAllSeries, getRevalidateTime } from "@/lib/services/product-service"
+import { getSeriesById, getRelatedSeries, getAllSeries, getRevalidateTime, ProductData } from "@/lib/services/product-service"
 
 interface StorageSeriesPageProps {
   params: {
@@ -10,7 +10,7 @@ interface StorageSeriesPageProps {
 }
 
 export async function generateMetadata({ params }: StorageSeriesPageProps): Promise<Metadata> {
-  const series = await getSeriesById("storage", params.seriesId)
+  const series = await getSeriesById("storage-solutions", params.seriesId)
   if (!series) return {}
 
   const title = `${series.title} | Office Storage Solutions | SteelMade`
@@ -59,25 +59,27 @@ export async function generateMetadata({ params }: StorageSeriesPageProps): Prom
 
 export default async function StorageSeriesPage({ params }: StorageSeriesPageProps) {
   const [series, relatedSeries] = await Promise.all([
-    getSeriesById("storage", params.seriesId),
-    getRelatedSeries("storage", params.seriesId)
+    getSeriesById("storage-solutions", params.seriesId),
+    getRelatedSeries("storage-solutions", params.seriesId)
   ])
 
   if (!series) notFound()
 
+  // Placeholder for actual products fetching logic
+  const products: ProductData[] = [] // TODO: Implement actual data fetching for products in this series
+
   return (
     <ProductSeriesPage
       series={series}
-      productType="storage"
-      backLink="/storage"
-      backText="Back to Storage Solutions"
-      relatedSeriesData={relatedSeries}
+      products={products} // Provide an empty array or fetched products
+      category="storage-solutions"
+      seriesId={params.seriesId}
     />
   )
 }
 
 export async function generateStaticParams() {
-  const allSeries = await getAllSeries("storage")
+  const allSeries = await getAllSeries("storage-solutions")
   return Object.keys(allSeries).map((seriesId) => ({
     seriesId,
   }))

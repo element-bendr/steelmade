@@ -4,6 +4,195 @@
 
 ---
 
+## Build Error Resolution (5/21/2025) - Final Pass
+
+**Objective:** Fix all outstanding build errors to enable successful deployment to Vercel for client review.
+
+**Previously Resolved (Summarized from 5/20 & earlier 5/21 entries):**
+*   Populated empty `.tsx` files to resolve module errors (e.g., `app/storage/[seriesId]/[productId]/page.tsx`).
+*   Corrected default/named import issues (e.g., `Input` component in `contact-form.tsx`).
+*   Fixed incorrect import paths for types (`ProductType`, `ImageAsset`, `CollectionFilters`) and components (`ThemeToggle` in `header.tsx`) across numerous files.
+*   Resolved issues with barrel file exports (`components/ui/index.ts`).
+*   Standardized `ProductType` (slugs like "storage-solutions") and `ProductCategory` (display names like "Storage Solutions") usage and import paths across the codebase.
+*   Updated `ProductData` type (`types/products.ts`) to include missing fields (`seoDescription`, `lastModified`, `materials`, `dimensions`, `imageUrl`, `category`, `seriesId`, `inStock`).
+*   Corrected data in `lib/data/collections-data.ts` to conform to `ProductData` and `ImageAsset` types (added missing `alt` tags, `category`, `seriesId`, etc., and ensured correct category keys).
+*   Added an optional `featured` property to `MegaMenu` interface (`lib/data/navigation.ts`) to fix errors in `components/ui/header.tsx`.
+*   Fixed type errors in `ImageCarousel` and `ProductSeriesInteractiveFeatures` related to `ImageAsset` arrays and `useCarouselDrag` hook usage.
+*   Resolved type errors in `app/storage/page.tsx` related to placeholder data (missing `images`, incorrect `category` type, `undefined` `coverImage`) and `getImageUrl` arguments.
+*   Corrected `getImageUrl` argument handling in `components/products/series-grid.tsx`.
+*   Fixed `canonicalPath` null issues in `components/seo/canonical-url.tsx`.
+*   Resolved `Object.entries` argument type errors in `components/seo/collections-schema.tsx` by filtering properties and adding null checks for `priceRange`.
+*   Corrected `externalRef` call signature in `hooks/use-carousel-drag.ts`.
+*   Refactored `lib/navigation.ts` to standardize category slugs (`ProductType`), display names (`ProductCategory`), and URL generation functions (`getCategoryUrl`, `getProductUrl`). Updated components using these functions.
+*   Addressed various prop mismatches and incorrect data access in components like `CollectionsGrid.tsx`, `ProtectedCollectionsGrid.tsx`, and `ProductSeriesPage`.
+
+**Newly Resolved Errors (Latter part of 5/21/2025):**
+
+16. **`Type error: No overload matches this call.` in `scripts/upload-images-to-s3.ts` (related to `Object.entries(subcategories)`)**
+    *   **Cause:** The `subcategories` variable, derived from `collections` (type `CategoryCollections`), could be a string or undefined, which is not compatible with `Object.entries`.
+    *   **Resolution:** Added a type check `if (typeof subcategories === 'object' && subcategories !== null)` before calling `Object.entries(subcategories)` within the `collectImagePaths` function.
+
+17. **`Type error: No overload matches this call.` in `scripts/upload-images-to-s3.ts` (related to `Object.values(data.products)`)**
+    *   **Cause:** `data.products` could be `undefined`, which is not a valid argument for `Object.values`.
+    *   **Resolution:** Added a check `if (data.products)` before calling `Object.values(data.products)` within the `collectImagePaths` function.
+
+**Build Status:** All identified build errors are now believed to be resolved. Ready for final build verification and deployment.
+
+---
+
+## Build Success and Next Steps (5/21/2025)
+
+**Objective:** Achieve a successful build and prepare for client review and further development.
+
+**Summary of Build Error Resolution (Final Pass - 5/21/2025):**
+
+*   **Successfully resolved all identified TypeScript type errors and build errors.**
+*   **Key issues addressed during the final push included (but not limited to):**
+    *   **Import Paths & Type Definitions:**
+        *   Corrected numerous import paths for types (e.g., `ProductType`, `ImageAsset`, `ProductCategory`, `CollectionFilters`) and components (e.g., `ThemeToggle`).
+        *   Resolved ambiguous re-exports of types with the same name (e.g., `ProductCategory` in `types/products.ts` renamed to `ProductCategoryDisplay`).
+        *   Updated type definitions (e.g., `MegaMenu.featured`, `ProductData` fields like `seoDescription`, `materials`, `dimensions`, `imageUrl`, `category`, `seriesId`, `inStock`, `CollectionFilters`) and data objects (e.g., `alt` in `ImageAsset`, `images` in `SeriesMetadata`, missing category keys in `collections-data.ts`) for consistency and completeness.
+    *   **Component Prop Types & Data Access:**
+        *   Fixed mismatched prop types and incorrect data access in components like `CollectionsGrid.tsx`, `protected-collections-grid.tsx`, `ProductPageLayout.tsx`, `SeriesCardStatic.tsx`, `header.tsx`, `image-carousel.tsx`, `ProductSeriesInteractiveFeatures.tsx`.
+    *   **Object Handling & Function Arguments:**
+        *   Addressed type errors with `Object.entries` and `Object.values` due to potentially undefined or incorrect object structures (e.g., in `collections-schema.tsx`, `upload-images-to-s3.ts`).
+        *   Corrected incorrect function arguments (e.g., `getImageUrl`, `getAllSeries`).
+    *   **Runtime & Build Errors:**
+        *   Added null checks, type guards, and fallback values to prevent runtime errors (e.g., for `canonicalPath`, `series.features`, `priceRange`, image URLs).
+        *   Ensured data fetching logic provides complete data to components (e.g., fetching full `SeriesMetadata` in `app/modular-furniture/page.tsx` to fix `series.features` undefined in `SeriesCardStatic.tsx`).
+        *   Fixed incorrect export/import of components (e.g., `Input` component in `components/ui/index.ts`).
+        *   Resolved type errors in ref handling (`hooks/use-carousel-drag.ts`).
+    *   **URL & Navigation Standardization:**
+        *   Standardized product category slugs (e.g., "storage-solutions") and display names in `lib/navigation.ts` and updated all dependent components and functions (`getCategoryUrl`, `getProductUrl`).
+    *   **Linting:**
+        *   Addressed ESLint `exhaustive-deps` warnings (e.g., in `hooks/use-products.ts`).
+
+**Build Status: SUCCESSFUL**
+
+**Next Steps:**
+
+1.  **Update `planner.md`:** (This entry) Document the final push of error resolutions and the successful build.
+2.  **Deploy to Vercel:** Deploy the current stable build to Vercel for client review and feedback.
+    *   Command: `vercel deploy --prod` (or standard Vercel deployment process).
+3.  **Resume Feature Development:**
+    *   Focus on implementing actual data fetching for series details on the "modular-furniture" product pages (`app/modular-furniture/[seriesId]/[productId]/page.tsx`) to replace mock data, as outlined in "Modular Furniture" Category Implementation & Testing plan.
+
+*(Previous content preserved below)*
+
+---
+
+## Build Error Resolution (5/20/2025)
+
+**Objective:** Fix outstanding build errors to enable successful deployment to Vercel for client review.
+
+**Errors Encountered & Resolutions:**
+
+1.  **`Type error: File '/vercel/path0/app/storage/[seriesId]/[productId]/page.tsx' is not a module.`**
+    *   **Cause:** The file `e:\\steelmadewebsite\\app\\storage\\[seriesId]\\[productId]\\page.tsx` was empty.
+    *   **Resolution:** Populated the file with a basic Next.js page component structure, including a default export, to make it a valid module.
+
+2.  **`Attempted import error: '@/components/ui/input' does not contain a default export (imported as 'Input').`**
+    *   **Import Trace:** `./node_modules/next/dist/esm/shared/lib/router/utils/app-paths.js`
+    *   **Investigation:**
+        *   Confirmed `e:\\steelmadewebsite\\components\\ui\\input.tsx` uses a named export: `export { Input }`.
+        *   Confirmed known usages (e.g., `e:\\steelmadewebsite\\components\\search\\SearchBar.tsx`) correctly use the named import: `import { Input } from "@/components/ui/input";`.
+        *   A `grep_search` for `import Input from "@/components/ui/input"` found no incorrect default imports.
+    *   **Hypothesis:** This error might have been a cascading issue caused by the build system's confusion due to the invalid module error in `app/storage/[seriesId]/[productId]/page.tsx`.
+    *   **Next Step:** Verify if fixing the module error also resolved this import error during the next build/deployment.
+
+---
+
+## Build Error Resolution (5/21/2025) - Continued
+
+**Objective:** Fix all outstanding build errors to enable successful deployment to Vercel for client review.
+
+**Previously Resolved (5/20/2025):**
+*   `Type error: File '/vercel/path0/app/storage/[seriesId]/[productId]/page.tsx' is not a module.`
+*   `Attempted import error: '@/components/ui/input' does not contain a default export (imported as 'Input').` (Resolved by fixing the module error above and correcting the import in `contact-form.tsx`)
+*   Multiple `Type error: File ... is not a module.` for various empty page files (e.g., `app/storage/[seriesId]/page.tsx`, `app/storage/page.tsx`).
+    *   **Resolution:** Populated these files with basic Next.js page component structures.
+*   Type errors in `app/chairs/[seriesId]/collections/page.tsx` related to `ProductData` missing fields (`seoDescription`, `lastModified`, `materials`) and `coverImage`/`images` type mismatches.
+    *   **Resolution:** Updated `ProductData` in the component to include missing fields with appropriate types or default values. Ensured `coverImage` and `images` conform to `ImageAsset`.
+*   Prop mismatches in `ProductSeriesPage` usage across category pages (e.g., `app/chairs/[seriesId]/page-fixed.tsx`, `app/desks/[seriesId]/page-fixed.tsx`).
+    *   **Resolution:** Corrected props passed to `ProductSeriesPage` (e.g., `productType` to `category`, added `seriesId`, `products`).
+*   Incorrect category string arguments in `getSeriesById`, `getRelatedSeries`, `getAllSeries` calls and for `ProductSeriesPage` props in various category pages.
+    *   **Resolution:** Standardized category strings (e.g., "hospital" to "hospital-furniture").
+*   `ProductType` not exported from `lib/services/product-service.ts` for `app/sitemap.ts`.
+    *   **Resolution:** Exported `ProductType` from `lib/services/product-service.ts`.
+*   Incorrect `ProductType` value "storage" in `app/sitemap.ts`.
+    *   **Resolution:** Changed to "storage-solutions".
+*   Conflicting `ProductType` definitions and incorrect import paths.
+    *   **Resolution:** Standardized `ProductType` to be imported from `types/products.ts` across multiple files (e.g., `app/collections/page.tsx`, `lib/services/collections-service.ts`, various components in `components/collections/`). Removed outdated definition from `types.ts`.
+*   `'ref' is specified more than once` error in `components/collections/CollectionCarousel.tsx`.
+    *   **Resolution:** Removed local `containerRef` and used the ref from `useSwipeable` hook directly.
+*   `Property 'refetch' does not exist` error in `components/collections/CollectionDetail.tsx`.
+    *   **Resolution:** Added `refetch` function to `useProducts` hook and updated `CollectionDetail.tsx` to use it.
+
+**Newly Resolved Errors (5/21/2025):**
+
+3.  **`Type error: Type 'string | undefined' is not assignable to type 'string'.` in `components/collections/CollectionsGrid.tsx` (for `subCategory={collection.id}` prop)**
+    *   **Cause:** `collection.id` could be `undefined`.
+    *   **Resolution:** Provided a default empty string if `collection.id` is undefined: `subCategory={collection.id ?? ''}`.
+
+4.  **Multiple type errors in `components/collections/CollectionsGrid.tsx` after initial fix (e.g., `Cannot find name 'Link'`, `Property 'productType' does not exist on type 'SubCategoryCollection'`, `Cannot find name 'CollectionPreview'`)**
+    *   **Cause:** Missing imports for `Link` and `CollectionPreview`. Incorrect property access for `SubCategoryCollection` (e.g., `collection.name`, `collection.productType` were not direct properties). `CollectionPreview` was also being misused as a grid item.
+    *   **Resolution:**
+        *   Added import for `Link` from `next/link`.
+        *   Realized `CollectionPreview` was not the correct component for rendering individual collection cards in the grid.
+        *   Replaced `CollectionPreview` usage within the map with direct JSX for rendering each collection card, including `next/image` for cover images.
+        *   Correctly accessed properties like `collection.id`, `collection.title`, `collection.coverImage`, and `collection.metadata?.coverImage`, `collection.metadata?.description`.
+        *   Calculated `productCount` based on `collection.products` or `collection.series`.
+        *   Made `productType` a mandatory prop for `CollectionsGrid` and used it for link generation.
+        *   Added a basic `useDebounce` hook for the search functionality.
+
+5.  **`Property 'altText' does not exist on type 'ImageAsset'.` in `components/collections/CollectionsGrid.tsx`**
+    *   **Cause:** `ImageAsset` type uses `alt` not `altText`.
+    *   **Resolution:** Changed `imageAsset.altText` to `imageAsset.alt`.
+
+6.  **`Type error: Type 'ProductCategories | EmptySubCategoryCollection' is not assignable to type 'SubCategoryCollection[]'.` in `components/collections/protected-collections-grid.tsx`**
+    *   **Cause:** `CollectionsGrid` expects `collections` prop as `SubCategoryCollection[]`, but `ProtectedCollectionsGrid` was passing an object (`ProductCategories`) or a single `EmptySubCategoryCollection`.
+    *   **Resolution:** Modified `ProtectedCollectionsGrid` to transform its `collections` prop into an array using `Object.values()` if it's an object, or an empty array if it's an `EmptySubCategoryCollection` or undefined/null, before passing to `CollectionsGrid`.
+
+7.  **`Type error: Property 'type' does not exist on type 'IntrinsicAttributes & CollectionsGridProps'. Did you mean 'productType'?` in `components/collections/protected-collections-grid.tsx`**
+    *   **Cause:** `CollectionsGrid` props were updated to expect `productType`, but `ProtectedCollectionsGrid` was still passing `type`.
+    *   **Resolution:** Changed prop from `type={type}` to `productType={type}` in `ProtectedCollectionsGrid`.
+
+8.  **`Type error: Property 'featured' does not exist on type 'MegaMenu'.` in `components/header.tsx`**
+    *   **Cause:** `featured` was a property of `MegaMenuColumn`, not `MegaMenu` itself in `lib/data/navigation.ts`.
+    *   **Resolution:** Added an optional `featured?: MegaMenuFeatured;` property to the `MegaMenu` interface in `lib/data/navigation.ts`.
+
+9.  **`Type error: Expected 1 arguments, but got 2.` for `getImageUrl` in `app/storage/page.tsx`**
+    *   **Cause:** `getImageUrl` function in `lib/utils/image-utils.ts` only accepts one argument (the image asset or URL), but was being called with a fallback URL as a second argument.
+    *   **Resolution:** Modified `app/storage/page.tsx` to handle the fallback logic externally. Call `getImageUrl(series.coverImage)`, and if the result is empty, use the placeholder URL `"/images/placeholder.jpg"` for the `Image` component's `src` prop.
+
+10. **`Module not found: Can't resolve '@/lib/services/product-service' in 'e:\steelmadewebsite\app\storage'` (manifested as `getProductSeries` not found) in `app/storage/page.tsx`**
+    *   **Cause:** Attempting to import `getProductSeries` which is not exported. The intention was to get all series for the "storage-solutions" category.
+    *   **Resolution:** Changed the import to `getAllSeries` from `@/lib/services/product-service`. Updated the code to process the object returned by `getAllSeries` (using `Object.values()`) into an array for rendering. Ensured placeholder data matched `SeriesMetadata`.
+
+11. **`Type error: Property 'images' is missing in type '{...}' but required in type 'SeriesMetadata'.` in `app/storage/page.tsx` (for placeholder data)**
+    *   **Cause:** Placeholder objects were missing the `images: ImageAsset[]` property required by `SeriesMetadata`.
+    *   **Resolution:** Added `images: []` to the placeholder objects.
+
+12. **`Type error: Types of property 'category' are incompatible. Type 'string' is not assignable to type 'ProductCategory'.` in `app/storage/page.tsx` (for placeholder data)**
+    *   **Cause:** The `category` property in placeholder data was a generic `string`, but `SeriesMetadata` expects `ProductCategory` (a union of specific string literals).
+    *   **Resolution:** Changed the `category` value in placeholder objects to `"storage-solutions"` and asserted the type using `as ProductCategory`.
+
+13. **`Type error: Type 'undefined' is not assignable to type 'ImageAsset'.` in `app/storage/page.tsx` (for `coverImage` in one placeholder object)**
+    *   **Cause:** One placeholder object had `coverImage: undefined`, which is not a valid `ImageAsset`.
+    *   **Resolution:** Changed `coverImage: undefined` to a placeholder `ImageAsset` object: `{ url: '/images/placeholder.jpg', alt: 'Placeholder Image', width: 800, height: 600 }`.
+
+14. **`Type error: Expected 1 arguments, but got 2.` for `getImageUrl` in `components/products/series-grid.tsx`**
+    *   **Cause:** Same as error #9. `getImageUrl` was called with a fallback URL.
+    *   **Resolution:** Modified `components/products/series-grid.tsx` to call `getImageUrl(series.coverImage)` and use `"/images/placeholder.jpg"` as a fallback for the `Image` src prop if the result is empty.
+
+15. **`Type error: 'canonicalPath' is possibly 'null'.` in `components/seo/canonical-url.tsx`**
+    *   **Cause:** `usePathname()` can return `null`, and if no `path` prop is provided, `canonicalPath` could be `null`, leading to an error when calling `.replace()` on it.
+    *   **Resolution:** Added a null check for `canonicalPath` before calling `replace`. If `canonicalPath` is null, `normalizedPath` becomes an empty string: `canonicalPath ? canonicalPath.replace(/\\/$/, '') : ''`.
+
+**Build Status:** All known build errors are now resolved.
+
+---
+
 ## Project Initialization and Structure Plan (5/12/2025)
 
 **Core Setup Tasks:**

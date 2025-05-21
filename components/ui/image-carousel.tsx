@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { OptimizedImage } from "./optimized-image"
 import { useCarouselDrag } from "@/hooks/use-carousel-drag"
-import { ImageAsset } from "@/types"
+import { ImageAsset } from "@/types/image-types"
 
 interface ImageCarouselProps {
   images: ImageAsset[]
@@ -60,7 +60,6 @@ export function ImageCarousel({
 
   // Drag handlers
   const { isDragging, handlers } = useCarouselDrag({
-    containerRef,
     onDragLeft: prevSlide,
     onDragRight: nextSlide
   })
@@ -81,14 +80,13 @@ export function ImageCarousel({
   return (
     <div className={cn("relative select-none", className)}>
       <div 
-        ref={containerRef}
         className={cn(
           "relative aspect-square overflow-hidden rounded-xl bg-gradient-to-br from-white/10 to-white/5",
           "backdrop-blur-sm border border-white/20 shadow-xl transition-all duration-300",
           "hover:shadow-2xl hover:border-white/30 hover:from-white/20 hover:to-white/10",
           isDragging && "cursor-grabbing"
         )}
-        {...handlers}
+        {...handlers(containerRef)} // Pass the ref to the handlers function
       >      {images.map((image, index) => (
           <div
             key={image.url}

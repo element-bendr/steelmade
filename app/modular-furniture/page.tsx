@@ -1,7 +1,8 @@
 // app/modular-furniture/page.tsx
 import { Metadata } from "next";
 import ProductCategoryPageLayout from "@/components/products/ProductCategoryPageLayout";
-import { getCategoryData, getRevalidateTime } from "@/lib/services/product-service";
+// Corrected: Added getAllSeries import
+import { getCategoryData, getAllSeries, getRevalidateTime } from "@/lib/services/product-service";
 import { getImageUrl } from "@/lib/utils/image-utils";
 
 export const revalidate = getRevalidateTime();
@@ -37,15 +38,15 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ModularFurniturePage() {
   const categoryData = await getCategoryData("modular-furniture");
+  // Fetched full series data using getAllSeries
+  const allSeriesForCategory = await getAllSeries("modular-furniture");
 
   if (!categoryData) {
     return <div>Modular furniture category not found.</div>;
   }
 
-  const seriesData = (categoryData.series || []).reduce((acc: Record<string, import("@/types/collections").SeriesMetadata>, series: import("@/types/collections").SeriesMetadata) => {
-    acc[series.id] = series; // Changed series.slug to series.id
-    return acc;
-  }, {} as Record<string, import("@/types/collections").SeriesMetadata>);
+  // seriesData is now correctly populated with full SeriesMetadata objects
+  const seriesData = allSeriesForCategory;
 
   const pageTitle = categoryData.title || "Modular Furniture";
   const pageDescription = categoryData.seoDescription || "Explore our versatile modular furniture solutions.";
@@ -57,7 +58,7 @@ export default async function ModularFurniturePage() {
   return (
     <ProductCategoryPageLayout
       category={categoryData}
-      seriesData={seriesData}
+      seriesData={seriesData} // Passed the full series data
       pageTitle={pageTitle}
       pageDescription={pageDescription}
       breadcrumbItems={breadcrumbItems}

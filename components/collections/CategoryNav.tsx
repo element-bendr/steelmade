@@ -2,8 +2,9 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { productCategories } from "@/lib/navigation"
+import { productCategoryDisplayNames, productCategoryPaths } from "@/lib/navigation"
 import type { ProductCategory } from "@/types/collections"
+import type { ProductType } from "@/types/products"
 
 interface CategoryNavProps {
   currentCategory?: ProductCategory
@@ -12,14 +13,14 @@ interface CategoryNavProps {
 export function CategoryNav({ currentCategory }: CategoryNavProps) {
   return (
     <nav className="flex flex-wrap gap-2 mb-8">
-      {Object.entries(productCategories).map(([category, title]) => (
-        <Link 
-          key={category} 
-          href={`/${category}`}
+      {(Object.entries(productCategoryDisplayNames) as [ProductType, string][]).map(([slug, title]) => (
+        <Link
+          key={slug}
+          href={productCategoryPaths[slug]}
           className="shrink-0"
         >
           <Button
-            variant={currentCategory === category ? "default" : "outline"}
+            variant={currentCategory === title ? "default" : "outline"}
             className="whitespace-nowrap"
           >
             {title}

@@ -23,48 +23,52 @@ export const SeriesGrid: React.FC<SeriesGridProps> = ({ seriesData, productType 
 
   return (
     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-      {Object.entries(seriesData).map(([seriesId, series]) => (
-        <Card key={seriesId} className="overflow-hidden group hover:shadow-lg transition-all duration-300">          <div className="relative h-52">
-            <Image
-              src={getImageUrl(series.coverImage, "/images/placeholder.jpg")}
-              alt={series.title}
-              fill
-              className="object-cover group-hover:scale-105 transition-all duration-500"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-          </div>
-          <CardHeader>
-            <CardTitle>{series.title}</CardTitle>
-            <CardDescription className="line-clamp-2">{series.description}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {series.features.slice(0, 3).map((feature, index) => (
-                <Badge key={index} variant="outline" className="px-2 py-1 text-xs">
-                  {feature}
-                </Badge>
-              ))}
-              {series.features.length > 3 && (
-                <Badge variant="secondary" className="px-2 py-1 text-xs">
-                  +{series.features.length - 3} more
-                </Badge>
-              )}
+      {Object.entries(seriesData).map(([seriesId, series]) => {
+        const imageUrl = getImageUrl(series.coverImage);
+        return (
+          <Card key={seriesId} className="overflow-hidden group hover:shadow-lg transition-all duration-300">          
+            <div className="relative h-52">
+              <Image
+                src={imageUrl || "/images/placeholder.jpg"} // Use placeholder if imageUrl is empty
+                alt={series.title}
+                fill
+                className="object-cover group-hover:scale-105 transition-all duration-500"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
             </div>
-            
-            {/* Product count indicator */}
-            {series.products && Object.keys(series.products).length > 0 && (
-              <p className="text-sm text-muted-foreground">
-                {Object.keys(series.products).length} product{Object.keys(series.products).length !== 1 ? 's' : ''} in this series
-              </p>
-            )}
-          </CardContent>
-          <CardFooter>
-            <Link href={`/${productType}/${seriesId}`} className="w-full">
-              <Button className="w-full">Explore Series</Button>
-            </Link>
-          </CardFooter>
-        </Card>
-      ))}
+            <CardHeader>
+              <CardTitle>{series.title}</CardTitle>
+              <CardDescription className="line-clamp-2">{series.description}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {series.features.slice(0, 3).map((feature, index) => (
+                  <Badge key={index} variant="outline" className="px-2 py-1 text-xs">
+                    {feature}
+                  </Badge>
+                ))}
+                {series.features.length > 3 && (
+                  <Badge variant="secondary" className="px-2 py-1 text-xs">
+                    +{series.features.length - 3} more
+                  </Badge>
+                )}
+              </div>
+              
+              {/* Product count indicator */}
+              {series.products && Object.keys(series.products).length > 0 && (
+                <p className="text-sm text-muted-foreground">
+                  {Object.keys(series.products).length} product{Object.keys(series.products).length !== 1 ? 's' : ''} in this series
+                </p>
+              )}
+            </CardContent>
+            <CardFooter>
+              <Link href={`/${productType}/${seriesId}`} className="w-full">
+                <Button className="w-full">Explore Series</Button>
+              </Link>
+            </CardFooter>
+          </Card>
+        );
+      })}
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { default as ProductSeriesPage } from "@/components/products/ProductSeriesPage"
 import { getSeriesById, getRelatedSeries, getAllSeries, getRevalidateTime } from "@/lib/services/product-service"
+import type { ProductData } from "@/types/products"
 
 interface DeskSeriesPageProps {
   params: {
@@ -65,13 +66,15 @@ export default async function DeskSeriesPage({ params }: DeskSeriesPageProps) {
 
   if (!series) notFound()
 
+  // TODO: Fetch actual products for the series
+  const products: ProductData[] = []
+
   return (
     <ProductSeriesPage
       series={series}
-      productType="desks"
-      backLink="/desks"
-      backText="Back to Desks"
-      relatedSeriesData={relatedSeries}
+      category="desks"
+      seriesId={params.seriesId}
+      products={products}
     />
   )
 }

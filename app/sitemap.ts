@@ -47,7 +47,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Product category pages
-  const productTypes: ProductType[] = ["chairs", "desks", "storage"];
+  const productTypes: ProductType[] = ["chairs", "desks", "storage-solutions"];
   const productPages = productTypes.map((type) => ({
     url: `${BASE_URL}/${type}`,
     lastModified: new Date(),

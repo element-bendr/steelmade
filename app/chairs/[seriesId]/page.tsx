@@ -61,10 +61,10 @@ export default async function ChairSeriesPage({ params }: ChairSeriesPageProps) 
     notFound()
   }
 
-  const products = await getSeriesProducts("chairs", params.seriesId)
+  const seriesProducts = await getSeriesProducts("chairs", params.seriesId)
 
   // Ensure products is an array, even if it's null or undefined
-  const productList = products ? Object.values(products) : [];
+  const productList = seriesProducts ? Object.values(seriesProducts) : [];
 
   return (
     <ProductSeriesPage

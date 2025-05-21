@@ -6,7 +6,7 @@ import { ProtectedCollectionsGrid } from '@/components/collections/protected-col
 import { CollectionsSkeleton } from '@/components/collections/CollectionsSkeleton';
 import { CollectionsService } from '@/lib/services/collections-service';
 import { Button } from '@/components/ui/button';
-import { ProductType } from '@/types';
+import type { ProductType } from '@/types/products';
 import type { SeriesWithProducts, SubCategoryCollections } from '@/types/collections';
 import { useToast } from '@/components/ui/use-toast';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -14,7 +14,11 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 const productTypes: { value: ProductType; label: string }[] = [
   { value: 'chairs', label: 'Chairs' },
   { value: 'desks', label: 'Desks' },
-  { value: 'storage', label: 'Storage' }
+  { value: 'storage-solutions', label: 'Storage Solutions' },
+  { value: 'hospital-furniture', label: 'Hospital Furniture' },
+  { value: 'school-furniture', label: 'School Furniture' },
+  { value: 'racking-systems', label: 'Racking Systems' },
+  { value: 'modular-furniture', label: 'Modular Furniture' },
 ];
 
 function CollectionsPageContent() {

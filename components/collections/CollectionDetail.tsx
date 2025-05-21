@@ -24,7 +24,7 @@ export function CollectionDetail({
   category,
   initialProducts = []
 }: CollectionDetailProps) {
-  const { products, isLoading, error, refetch } = useProducts(category, seriesId, initialProducts)
+  const { products, isLoading, error, refetch } = useProducts(category, seriesId)
   const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel')
   
   if (error) {

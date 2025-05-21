@@ -1,7 +1,10 @@
-import type { ProductType, ProductData } from "@/types/products"
+import type { ProductType as ImportedProductType, ProductData as ImportedProductData } from "@/types/products"
 import type { SeriesMetadata, ProductCategory } from "@/types/collections"
 import type { ImageAsset } from "@/types/image-types"
 import { MOCK_SERIES, MOCK_PRODUCTS } from "@/lib/data/mock-data"
+
+export type ProductType = ImportedProductType;
+export type ProductData = ImportedProductData;
 
 type ProductDataMap = Record<string, ProductData>
 

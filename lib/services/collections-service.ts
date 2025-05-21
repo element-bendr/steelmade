@@ -1,6 +1,6 @@
 import { CategoryCollections, SubCategoryCollection, SeriesWithProducts } from "@/types/collections";
 import { collections } from "@/lib/data/collections-data";
-import { ProductType } from "./product-service";
+import type { ProductType } from "@/types/products";
 
 // Helper function to convert SubCategoryCollection to SeriesWithProducts
 function convertToSeriesWithProducts(
@@ -8,15 +8,15 @@ function convertToSeriesWithProducts(
   collection: SubCategoryCollection
 ): SeriesWithProducts {
   return {
-    id: seriesId,
+    seriesId: seriesId, // Changed id to seriesId
     title: collection.metadata.title,
     description: collection.metadata.description,
     seoDescription: collection.metadata.seoDescription,
     coverImage: collection.metadata.coverImage,
     features: collection.metadata.features,
     images: collection.metadata.images,
-    lastModified: new Date(collection.lastModified),
-    products: collection.products
+    lastModified: collection.lastModified ? new Date(collection.lastModified) : new Date(), // Added fallback for lastModified
+    products: collection.products || {} // Added fallback for products
   };
 }
 
@@ -49,9 +49,13 @@ export const CollectionsService = {
   // Get featured collections across all product types
   async getFeaturedCollections(): Promise<Record<ProductType, Record<string, SeriesWithProducts>>> {
     return {
-      chairs: await this.getCollectionsByType("chairs"),
-      desks: await this.getCollectionsByType("desks"),
-      storage: await this.getCollectionsByType("storage")
+      "chairs": await this.getCollectionsByType("chairs"),
+      "desks": await this.getCollectionsByType("desks"),
+      "storage-solutions": await this.getCollectionsByType("storage-solutions"),
+      "hospital-furniture": await this.getCollectionsByType("hospital-furniture"),
+      "school-furniture": await this.getCollectionsByType("school-furniture"),
+      "racking-systems": await this.getCollectionsByType("racking-systems"),
+      "modular-furniture": await this.getCollectionsByType("modular-furniture"),
     };
   },
 

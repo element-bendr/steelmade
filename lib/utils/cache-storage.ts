@@ -3,14 +3,14 @@
  */
 
 import { CollectionFilters } from "@/types/collections";
-import { ProductType } from "@/types";
+import { ProductType } from "@/types/products";
 import { CollectionErrorType, createCollectionError } from "./collection-errors";
 
 const CACHE_PREFIX = "mcp_collections_";
 const CACHE_EXPIRY = 1000 * 60 * 60; // 1 hour
 
 // Available product types for cache management
-const PRODUCT_TYPES: ProductType[] = ["chairs", "desks", "storage"];
+const PRODUCT_TYPES: ProductType[] = ["chairs", "desks", "storage-solutions"];
 
 interface CacheEntry<T> {
   data: T;

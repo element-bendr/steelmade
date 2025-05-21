@@ -30,7 +30,7 @@ export type ProductType =
   | "racking-systems"
   | "modular-furniture"; // Added modular-furniture
 
-export type ProductCategory =
+export type ProductCategoryDisplay = // Renamed from ProductCategory
   | "Chairs"
   | "Desks"
   | "Storage Solutions" // Changed from "Storage"
@@ -51,6 +51,7 @@ export interface ProductData {
   id: string;
   name: string;
   description: string;
+  seoDescription?: string; // Added seoDescription as optional
   price?: number;
   imageUrl: string;
   images?: ProductImage[];
@@ -60,4 +61,12 @@ export interface ProductData {
   specifications?: Record<string, string>;
   inStock: boolean;
   relatedProducts?: string[];
+  materials?: string[]; // Added materials
+  dimensions?: { // Added dimensions
+    width: string;
+    height: string;
+    depth: string;
+    weight: string;
+  };
+  lastModified?: Date | string; // Added lastModified
 }

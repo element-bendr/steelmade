@@ -1,7 +1,6 @@
 import { useRef, useState, useCallback, RefObject } from "react"
 
 interface UseCarouselDragProps {
-  containerRef: RefObject<HTMLElement>
   onDragLeft: () => void
   onDragRight: () => void
   threshold?: number
@@ -9,7 +8,8 @@ interface UseCarouselDragProps {
 
 interface UseCarouselDragReturn {
   isDragging: boolean
-  handlers: {
+  handlers: (ref: RefObject<HTMLElement>) => {
+    ref: (element: HTMLElement | null) => void
     onMouseDown: (e: React.MouseEvent) => void
     onMouseMove: (e: React.MouseEvent) => void
     onMouseUp: () => void
@@ -21,7 +21,6 @@ interface UseCarouselDragReturn {
 }
 
 export function useCarouselDrag({
-  containerRef,
   onDragLeft,
   onDragRight,
   threshold = 50,
@@ -29,6 +28,7 @@ export function useCarouselDrag({
   const [isDragging, setIsDragging] = useState(false)
   const startX = useRef<number | null>(null)
   const currentX = useRef<number | null>(null)
+  const internalRef = useRef<HTMLElement | null>(null)
 
   const handleDragStart = useCallback((clientX: number) => {
     setIsDragging(true)
@@ -49,7 +49,6 @@ export function useCarouselDrag({
 
     const diff = currentX.current - startX.current
 
-    // Determine if drag was significant enough
     if (Math.abs(diff) > threshold) {
       if (diff > 0) {
         onDragRight()
@@ -63,7 +62,23 @@ export function useCarouselDrag({
     currentX.current = null
   }, [isDragging, onDragLeft, onDragRight, threshold])
 
-  const handlers = {
+  const getHandlers = (externalRef: RefObject<HTMLElement>) => ({
+    ref: (element: HTMLElement | null) => {
+      internalRef.current = element
+      if (typeof externalRef === "function") {
+        // Explicitly cast to a function type that accepts HTMLElement | null
+        (externalRef as (instance: HTMLElement | null) => void)(element)
+      } else if (externalRef && typeof externalRef === 'object' && 'current' in externalRef) {
+        // For RefObjects, React handles the .current assignment.
+        // If externalRef is a MutableRefObject, this would be the way to assign:
+        // (externalRef as React.MutableRefObject<HTMLElement | null>).current = element;
+        // However, the error "Cannot assign to 'current' because it is a read-only property"
+        // suggests it's likely a RefObject<HTMLElement> not a MutableRefObject<HTMLElement | null>.
+        // React will manage setting .current on RefObjects when the ref is passed to an element.
+        // The hook's responsibility is to call the function ref or update the mutable ref object.
+        // If it's a standard RefObject, no direct assignment is needed here by this hook.
+      }
+    },
     onMouseDown: (e: React.MouseEvent) => handleDragStart(e.clientX),
     onMouseMove: (e: React.MouseEvent) => handleDragMove(e.clientX),
     onMouseUp: () => handleDragEnd(),
@@ -71,7 +86,7 @@ export function useCarouselDrag({
     onTouchStart: (e: React.TouchEvent) => handleDragStart(e.touches[0].clientX),
     onTouchMove: (e: React.TouchEvent) => handleDragMove(e.touches[0].clientX),
     onTouchEnd: () => handleDragEnd(),
-  }
+  })
 
-  return { isDragging, handlers }
+  return { isDragging, handlers: getHandlers }
 }

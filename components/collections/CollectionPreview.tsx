@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ProductType } from "@/types";
+import { ProductType } from "@/types/products";
 import { SubCategoryCollection } from "@/types/collections";
 import { ProtectedCollectionsGrid } from "./protected-collections-grid";
 import { Suspense } from "react";

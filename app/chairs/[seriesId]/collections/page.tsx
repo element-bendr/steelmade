@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { ProtectedCollectionsGrid } from "@/components/collections/protected-collections-grid";
 import { SubCategoryCollection } from "@/types/collections";
 import { collections } from "@/lib/data/collections-data";
+import type { ImageAsset } from "@/types/image-types"; // Added import for ImageAsset
 
 interface PageProps {
   params: {
@@ -22,28 +23,35 @@ export default function Page({ params }: PageProps) {
 
   const productCollections = productIds.reduce<Record<string, SubCategoryCollection>>((acc, productId) => {
     const product = products[productId];
+    const fallbackCoverImage: ImageAsset = {
+      url: "/images/collections/placeholder-collection.webp",
+      alt: `Placeholder image for ${product.name}`,
+      width: 800,
+      height: 800
+    };
+    // Ensure product.images are correctly typed as ImageAsset[] if they come from ProductData
+    const productImagesAsAssets: ImageAsset[] = product.images?.map(img => ({ 
+      url: img.url, 
+      alt: img.alt, 
+      width: img.width, 
+      height: img.height 
+    })) || [];
+
     acc[productId] = {
       id: productId,
       metadata: {
         title: product.name,
         description: product.description || "",
-        seoDescription: product.seoDescription || "",
-        coverImage: product.images?.[0] || {
-          url: "/images/collections/placeholder-collection.webp",
-          width: 800,
-          height: 800
-        },
+        seoDescription: product.description || "", // Fallback to description
+        coverImage: productImagesAsAssets[0] || fallbackCoverImage,
         features: product.features || [],
-        images: product.images || [],
-        lastModified: product.lastModified
+        images: productImagesAsAssets.length > 0 ? productImagesAsAssets : [fallbackCoverImage],
+        lastModified: new Date().toISOString(), // Fallback to current date as ProductData lacks lastModified
       },
-      // Ensure materials and features are included at the top level
-      materials: product.materials || [],
       features: product.features || [],
+      // materials: product.materials || [], // ProductData lacks materials
       products: {},
-      lastModified: typeof product.lastModified === "string"
-        ? product.lastModified
-        : product.lastModified.toISOString(),
+      lastModified: new Date().toISOString(), // Fallback to current date
     };
     return acc;
   }, {});

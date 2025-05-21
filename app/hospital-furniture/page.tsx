@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 export default async function HospitalFurniturePage() {
   // The category key in MOCK_SERIES is 'hospital'
-  const seriesData = await getSeriesForCategory("hospital");
+  const seriesData = await getSeriesForCategory("hospital-furniture");
 
   const pageTitle = "Hospital Furniture";
   const pageDescription = "Specialized furniture solutions for healthcare environments. Durable, hygienic, and designed for patient and staff comfort.";
@@ -44,7 +44,7 @@ export default async function HospitalFurniturePage() {
       </div>
     }>
       <ProductCategoryPageLayout
-        category="hospital"
+        category="hospital-furniture"
         seriesData={seriesData}
         pageTitle={pageTitle}
         pageDescription={pageDescription}

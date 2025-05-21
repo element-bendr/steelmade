@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useSwipeable } from "react-swipeable"
@@ -26,7 +26,14 @@ export function CollectionCarousel({
 }: CollectionCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
+  
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => nextSlide(),
+    onSwipedRight: () => prevSlide(),
+    swipeDuration: 500,
+    preventScrollOnSwipe: true,
+    trackMouse: true
+  })
   
   const nextSlide = () => {
     if (isAnimating) return
@@ -52,14 +59,6 @@ export function CollectionCarousel({
     }, 300) // Match transition duration
   }
   
-  const handlers = useSwipeable({
-    onSwipedLeft: () => nextSlide(),
-    onSwipedRight: () => prevSlide(),
-    swipeDuration: 500,
-    preventScrollOnSwipe: true,
-    trackMouse: true
-  })
-  
   // Reset index when products change
   useEffect(() => {
     setCurrentIndex(0)
@@ -74,9 +73,8 @@ export function CollectionCarousel({
       
       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border bg-background shadow-sm">
         <div 
-          ref={containerRef} 
+          {...swipeHandlers} // Spread all handlers, including the ref from useSwipeable
           className="relative h-full w-full" 
-          {...handlers}
         >
           {/* Render products */}
           {products.map((product, index) => (

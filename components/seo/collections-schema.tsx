@@ -1,10 +1,15 @@
-import { CategoryCollections } from "@/types/collections";
+import { CategoryCollections, ProductCategories } from "@/types/collections";
 
 export function generateCollectionSchema(collections: CategoryCollections) {
+  // Filter out non-ProductCategories properties before iterating
+  const validCategories = Object.entries(collections).filter(
+    ([key, value]) => typeof value === 'object' && value !== null && !Array.isArray(value) && key !== 'title' && key !== 'description' && key !== 'subCategories'
+  ) as [string, ProductCategories][];
+
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "itemListElement": Object.entries(collections).flatMap(([category, subCategories]) =>
+    "itemListElement": validCategories.flatMap(([category, subCategories]) =>
       Object.entries(subCategories).map(([seriesId, series], index) => ({
         "@type": "Product",
         "position": index + 1,
@@ -13,8 +18,8 @@ export function generateCollectionSchema(collections: CategoryCollections) {
         "image": series.metadata.coverImage.url,
         "offers": {
           "@type": "AggregateOffer",
-          "lowPrice": series.priceRange.min.replace("$", ""),
-          "highPrice": series.priceRange.max.replace("$", ""),
+          "lowPrice": series.priceRange?.min?.replace("$", "") || "0",
+          "highPrice": series.priceRange?.max?.replace("$", "") || "0",
           "priceCurrency": "USD"
         }
       }))

@@ -13,7 +13,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import {
   Sheet,
   SheetContent,
@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/collapsible";
 import { ProductType, getAllSeries } from "@/lib/services/product-service";
 import { mainNavigation } from "@/lib/data/navigation";
+import { cn } from "@/lib/utils"; // Added import for cn
 
 // Define the type for series data
 interface SeriesMetadata {
@@ -65,7 +66,7 @@ const Header = () => {
         const [chairs, desks, storage] = await Promise.all([
           getAllSeries("chairs"),
           getAllSeries("desks"),
-          getAllSeries("storage"),
+          getAllSeries("storage-solutions"), // Changed "storage" to "storage-solutions"
         ]);
 
         setChairsData(chairs);
@@ -436,91 +437,112 @@ const Header = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:block ml-auto">
-          <NavigationMenu>
-            <NavigationMenuList>
-              {/* Chairs Navigation */}
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Chairs</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  {renderSeriesLinks("chairs", chairsData)}
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              {/* Desks Navigation */}
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Desks</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  {renderSeriesLinks("desks", desksData)}
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              {/* Storage Solutions Navigation */}
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Storage Solutions</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  {renderSubmenuItems(mainNavigation.find(item => item.title === "Storage Solutions")?.submenu)}
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              {/* Racking Systems Navigation */}
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Racking Systems</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  {renderSubmenuItems(mainNavigation.find(item => item.title === "Racking Systems")?.submenu)}
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              {/* School Furniture */}
-              <NavigationMenuItem>
-                <Link href="/school-furniture" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    School Furniture
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-
-              {/* Hospital Furniture */}
-              <NavigationMenuItem>
-                <Link href="/hospital-furniture" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Hospital Furniture
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-
-              {/* About */}
-              <NavigationMenuItem>
-                <Link href="/about" legacyBehavior passHref>
-                  <NavigationMenuLink
+        <NavigationMenu className="hidden md:flex flex-grow justify-center">
+          <NavigationMenuList>
+            {mainNavigation.map((navItem, index) => (
+              <NavigationMenuItem key={index}>
+                {navItem.megaMenu ? (
+                  <>
+                    <NavigationMenuTrigger
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      {navItem.title}
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                        {navItem.megaMenu.featured && (
+                          <li className="row-span-3">
+                            <NavigationMenuLink asChild>
+                              <a
+                                className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                                href={navItem.megaMenu.featured.href}
+                              >
+                                <div className="mb-2 mt-4 text-lg font-medium">
+                                  {navItem.megaMenu.featured.title}
+                                </div>
+                                <p className="text-sm leading-tight text-muted-foreground">
+                                  {navItem.megaMenu.featured.description}
+                                </p>
+                              </a>
+                            </NavigationMenuLink>
+                          </li>
+                        )}
+                        {navItem.megaMenu.columns.map((column, colIndex) => (
+                          <React.Fragment key={colIndex}>
+                            {column.header && (
+                              <li className="font-semibold text-sm text-foreground py-1 px-2">
+                                {column.header}
+                              </li>
+                            )}
+                            {column.links.map((link, linkIndex) => (
+                              <ListItem
+                                key={linkIndex}
+                                href={link.href}
+                                title={link.title}
+                                onClick={() => setIsOpen(false)}
+                              >
+                                {link.description}
+                              </ListItem>
+                            ))}
+                          </React.Fragment>
+                        ))}
+                      </ul>
+                    </NavigationMenuContent>
+                  </>
+                ) : navItem.href ? (
+                  <Link href={navItem.href} legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                      active={pathname === navItem.href}
+                    >
+                      {navItem.title}
+                    </NavigationMenuLink>
+                  </Link>
+                ) : (
+                  <NavigationMenuTrigger
                     className={navigationMenuTriggerStyle()}
+                    disabled
                   >
-                    About
-                  </NavigationMenuLink>
-                </Link>
+                    {navItem.title}
+                  </NavigationMenuTrigger>
+                )}
               </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
 
-              {/* Contact */}
-              <NavigationMenuItem>
-                <Link href="/contact" legacyBehavior passHref>
-                  <NavigationMenuLink
-                    className={navigationMenuTriggerStyle()}
-                  >
-                    Contact
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-        </div>
-
-        {/* Theme Toggle - Desktop */}
-        <div className="hidden md:block">
+        <div className="flex items-center gap-2">
           <ThemeToggle />
         </div>
       </div>
     </header>
   );
 };
+
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";
 
 export default Header;

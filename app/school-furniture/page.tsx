@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SchoolFurniturePage() {
-  const seriesData = await getSeriesForCategory("school");
+  const seriesData = await getSeriesForCategory("school-furniture");
 
   const pageTitle = "School Furniture";
   const pageDescription = "Equip educational spaces with our durable and functional school furniture. Designed for modern learning environments.";
@@ -43,7 +43,7 @@ export default async function SchoolFurniturePage() {
       </div>
     }>
       <ProductCategoryPageLayout
-        category="school"
+        category="school-furniture"
         seriesData={seriesData}
         pageTitle={pageTitle}
         pageDescription={pageDescription}

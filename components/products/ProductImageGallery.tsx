@@ -5,22 +5,22 @@ import Image from 'next/image';
 import type { ProductImage } from '@/types/products'; // Assuming ProductImage is defined in types/products.ts
 // If ProductImage is in image-types.ts, use: import type { ImageAsset as ProductImage } from '@/types/image-types';
 
-
 interface ProductImageGalleryProps {
   images: ProductImage[];
   productName: string;
 }
 
 const ProductImageGallery: React.FC<ProductImageGalleryProps> = ({ images, productName }) => {
-  if (!images || images.length === 0) {
+  // Moved useState to the top, before any conditional returns
+  const [currentImage, setCurrentImage] = useState(images && images.length > 0 ? images[0] : null);
+
+  if (!images || images.length === 0 || !currentImage) { // Added !currentImage check
     return (
       <div className="w-full aspect-[4/3] bg-gray-200 flex items-center justify-center rounded-lg shadow-md">
         <p>No Image Available</p>
       </div>
     );
   }
-
-  const [currentImage, setCurrentImage] = useState(images[0]);
 
   const handleThumbnailClick = (image: ProductImage) => {
     setCurrentImage(image);

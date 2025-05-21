@@ -27,6 +27,7 @@ export interface MegaMenuColumn {
 export interface MegaMenu {
   columns: MegaMenuColumn[];
   description?: string;
+  featured?: MegaMenuFeatured; // Added optional featured property here
 }
 
 export interface NavigationItem {

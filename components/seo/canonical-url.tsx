@@ -30,11 +30,11 @@ const BASE_URL = 'https://steelmade.com';
 export function CanonicalUrl({ path, domain = BASE_URL }: CanonicalProps) {
   const pathname = usePathname();
   const canonicalPath = path || pathname;
-  
-  // Remove trailing slash if present (except for homepage)
+
+  // Ensure canonicalPath is not null before calling replace
   const normalizedPath = canonicalPath === '/' 
     ? canonicalPath 
-    : canonicalPath.replace(/\/$/, '');
+    : canonicalPath ? canonicalPath.replace(/\/$/, '') : ''; // Added null check
   
   const canonicalUrl = `${domain}${normalizedPath}`;
   

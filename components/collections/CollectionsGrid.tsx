@@ -1,172 +1,95 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import { ProductType } from '@/types';
-import type { 
-  SubCategoryCollection, 
-  SubCategoryCollections, 
-  EmptySubCategoryCollection,
-  SeriesWithProducts
-} from '@/types/collections';
-import type { ImageAsset } from '@/types/image-types';
-import { CollectionCard } from './CollectionCard';
-import { CollectionFilters } from './CollectionFilters';
-import { Button } from '@/components/ui/button';
-import { CollectionEventType } from '@/lib/utils/collection-events';
-import { useCollectionEvents } from '@/hooks/use-collection-events';
-import { isEmptyCollection } from '@/lib/utils/collection-utils';
-import { CollectionsService } from '@/lib/services/collections-service';
-
-interface CollectionFiltersType {
-  materials: string[];
-  features: string[];
-  priceRanges: {
-    label: string;
-    min: number;
-    max: number;
-  }[];
-}
+import { useState, useEffect, useMemo } from 'react';
+import Link from 'next/link'; // Ensure Link is imported
+import { ProductType } from '@/types/products';
+import type { SubCategoryCollection } from '@/types/collections';
+import Image from 'next/image'; // Import next/image for cover images
 
 interface CollectionsGridProps {
-  type: ProductType;
-  collections: SubCategoryCollections | EmptySubCategoryCollection;
+  collections: SubCategoryCollection[];
+  productType: ProductType; // Made productType mandatory
 }
 
-/**
- * Grid display of collections with filtering capabilities
- */
-export function CollectionsGrid({ type, collections }: CollectionsGridProps) {
-  const [displayedCollections, setDisplayedCollections] = useState<SubCategoryCollection[]>(() => {
-    if (isEmptyCollection(collections)) {
-      return [];
-    }
-    return Object.entries(collections)
-      .map(([id, collection]) => ({
-        id,
-        ...(collection as SubCategoryCollection)
-      }))
-      .sort((a, b) => a.metadata.title.localeCompare(b.metadata.title));
-  });
+export function CollectionsGrid({ collections, productType }: CollectionsGridProps) {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredCollections, setFilteredCollections] = useState(collections);
 
-  const [selectedFilters, setSelectedFilters] = useState({
-    materials: [] as string[],
-    features: [] as string[],
-    priceRanges: [] as string[],
-  });
+  // Debounce search term
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
-  const filters: CollectionFiltersType = useMemo(() => {
-    const allMaterials = new Set<string>();
-    const allFeatures = new Set<string>();
-    
-    displayedCollections.forEach(collection => {
-      collection.materials?.forEach(material => allMaterials.add(material));
-      collection.features?.forEach(feature => allFeatures.add(feature));
-    });
-
-    return {
-      materials: Array.from(allMaterials),
-      features: Array.from(allFeatures),
-      priceRanges: [], // Add price ranges if needed
-    };
-  }, [displayedCollections]);
-
-  // Handle filter changes
-  const handleFilterChange = useCallback((filterType: string, value: string) => {
-    setSelectedFilters(prev => {
-      const newFilters = { ...prev };
-      if (filterType === '') {
-        return {
-          materials: [],
-          features: [],
-          priceRanges: [],
-        };
-      }
-
-      const filterArray = newFilters[filterType as keyof typeof newFilters];
-      const index = filterArray.indexOf(value);
-      
-      if (index === -1) {
-        filterArray.push(value);
-      } else {
-        filterArray.splice(index, 1);
-      }
-
-      return newFilters;
-    });
-  }, []);
-
-  const originalCollections = useMemo(() => {
-    if (isEmptyCollection(collections)) {
-      return [];
-    }
-    return Object.entries(collections)
-      .map(([id, collection]) => ({
-        id,
-        ...(collection as SubCategoryCollection)
-      }))
-      .sort((a, b) => a.metadata.title.localeCompare(b.metadata.title));
-  }, [collections]);
-
-  // Apply filters whenever filters change
   useEffect(() => {
-    const newCollections = originalCollections.filter(collection => {
-      if (selectedFilters.materials.length > 0 && 
-          !collection.materials?.some(m => selectedFilters.materials.includes(m))) {
-        return false;
-      }
-      if (selectedFilters.features.length > 0 && 
-          !collection.features?.some(f => selectedFilters.features.includes(f))) {
-        return false;
-      }
-      return true;
-    });
+    if (debouncedSearchTerm) {
+      setFilteredCollections(
+        collections.filter(
+          (collection) =>
+            collection.title?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+            collection.metadata?.description?.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+        )
+      );
+    } else {
+      setFilteredCollections(collections);
+    }
+  }, [debouncedSearchTerm, collections]);
 
-    setDisplayedCollections(newCollections);
-  }, [selectedFilters, originalCollections]);
-
-  const [showAllItems, setShowAllItems] = useState(false);
-  const displayLimit = showAllItems ? displayedCollections.length : 5;
+  if (!filteredCollections || filteredCollections.length === 0) {
+    return <p>No collections found.</p>;
+  }
 
   return (
-    <div className="space-y-6">
-      <CollectionFilters
-        type={type}
-        filters={filters}
-        selectedFilters={selectedFilters}
-        onFilterChange={handleFilterChange}
+    <div>
+      <input
+        type="text"
+        placeholder="Search collections..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="mb-4 p-2 border rounded w-full"
       />
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {filteredCollections.map((collection) => {
+          const imageAsset = collection.coverImage || collection.metadata?.coverImage;
+          const productCount = collection.products ? Object.keys(collection.products).length : (collection.series?.reduce((acc, s) => acc + Object.keys(s.products).length, 0) ?? 0);
 
-      {displayedCollections.length === 0 ? (
-        <div className="text-center py-8">
-          <p className="text-lg text-slate-500 dark:text-slate-400">
-            No collections found
-          </p>
-        </div>
-      ) : (
-        <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {displayedCollections.slice(0, displayLimit).map((collection) => (
-              <CollectionCard
-                key={collection.id}
-                collection={collection}
-                type={type}
-                subCategory={collection.id}
-              />
-            ))}
-          </div>
-          
-          {displayedCollections.length > 5 && (
-            <div className="text-center mt-8">
-              <Button 
-                variant="outline"
-                onClick={() => setShowAllItems(prev => !prev)}
-              >
-                {showAllItems ? "Show Fewer Items" : "View More Items"}
-              </Button>
-            </div>
-          )}
-        </>
-      )}
+          return (
+            <Link href={`/collections/${productType}/${collection.id}`} key={collection.id} className="block group border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="relative w-full h-48">
+                {imageAsset && imageAsset.url ? (
+                  <Image 
+                    src={imageAsset.url} 
+                    alt={imageAsset.alt || collection.title || 'Collection image'} 
+                    layout="fill" 
+                    objectFit="cover" 
+                    className="group-hover:scale-105 transition-transform duration-300"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <span className="text-gray-500">No Image</span>
+                  </div>
+                )}
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-semibold mb-1 truncate group-hover:text-blue-600">{collection.title ?? 'Unnamed Collection'}</h3>
+                <p className="text-sm text-gray-600 mb-2">{collection.metadata?.description ? collection.metadata.description.substring(0,50)+'...' : 'No description'}</p>
+                <p className="text-xs text-gray-500">Products: {productCount}</p>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
+}
+
+// Basic debounce hook (should be in a separate utility file ideally)
+function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+  return debouncedValue;
 }

@@ -1,4 +1,5 @@
-import { ProductCategory, Product } from "@/types/products";
+import { ProductCategory } from "@/types/collections";
+import { Product } from "@/types/products";
 import { ProductCategorySchema } from "@/components/seo/product-category-schema";
 import { ProductCategoryCanonicalUrl } from "@/components/seo/product-category-canonical-url";
 import { Metadata } from "next";

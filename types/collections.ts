@@ -144,3 +144,11 @@ export interface ViewMoreSlideProps {
   isVisible: boolean;
   className?: string;
 }
+
+export interface CollectionFilters {
+  categories?: ProductCategoryKey[];
+  priceRange?: [number, number];
+  materials?: string[];
+  styles?: string[];
+  // Add other filter criteria as needed
+}

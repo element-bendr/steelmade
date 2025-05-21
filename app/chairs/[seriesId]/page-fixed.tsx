@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { default as ProductSeriesPage } from "@/components/products/ProductSeriesPage"
 import { getSeriesById, getRelatedSeries, getAllSeries, getRevalidateTime } from "@/lib/services/product-service"
+import type { ProductData } from "@/types/products"; // Added import for ProductData
 
 interface ChairSeriesPageProps {
   params: {
@@ -58,20 +59,21 @@ export async function generateMetadata({ params }: ChairSeriesPageProps): Promis
 }
 
 export default async function ChairSeriesPage({ params }: ChairSeriesPageProps) {
-  const [series, relatedSeries] = await Promise.all([
-    getSeriesById("chairs", params.seriesId),
-    getRelatedSeries("chairs", params.seriesId)
+  const [series] = await Promise.all([
+    getSeriesById("chairs", params.seriesId)
   ])
 
   if (!series) notFound()
 
+  // TODO: Fetch actual products for the series
+  const products: ProductData[] = []; // Placeholder for products
+
   return (
     <ProductSeriesPage
       series={series}
-      productType="chairs"
-      backLink="/chairs"
-      backText="Back to Chairs"
-      relatedSeriesData={relatedSeries}
+      category="chairs" // Changed from productType to category
+      seriesId={params.seriesId} // Added seriesId
+      products={products} // Added products array
     />
   )
 }

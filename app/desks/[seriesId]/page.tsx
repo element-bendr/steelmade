@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import { default as ProductSeriesPage } from "@/components/products/ProductSeriesPage"
 import { getSeriesById, getRelatedSeries, getAllSeries, getRevalidateTime } from "@/lib/services/product-service"
 import { getImageUrl } from "@/lib/utils/image-utils"
+import type { ProductData } from "@/types/products"
 
 interface DeskSeriesPageProps {
   params: {
@@ -53,20 +54,18 @@ export async function generateMetadata({ params }: DeskSeriesPageProps): Promise
 }
 
 export default async function DeskSeriesPage({ params }: DeskSeriesPageProps) {
-  const [series, relatedSeries] = await Promise.all([
-    getSeriesById("desks", params.seriesId),
-    getRelatedSeries("desks", params.seriesId)
-  ])
+  const series = await getSeriesById("desks", params.seriesId)
 
   if (!series) notFound()
+
+  const products: ProductData[] = []
 
   return (
     <ProductSeriesPage
       series={series}
-      productType="desks"
-      backLink="/desks"
-      backText="Back to Desks"
-      relatedSeriesData={relatedSeries}
+      category="desks"
+      seriesId={params.seriesId}
+      products={products}
     />
   )
 }

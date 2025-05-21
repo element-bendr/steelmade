@@ -19,19 +19,22 @@ export const collections: CategoryCollections = {
         coverImage: {
           url: "/images/collections/executive-series-cover.webp",
           width: 800,
-          height: 600
+          height: 600,
+          alt: "Director Series executive chair"
         },
         features: ["Executive Design", "Premium Materials", "Ergonomic Support"],
         images: [
           {
             url: "/images/collections/executive-series-placeholder1.webp",
             width: 800,
-            height: 600
+            height: 600,
+            alt: "Director Series chair placeholder 1"
           },
           {
             url: "/images/collections/executive-series-placeholder2.webp",
             width: 800,
-            height: 600
+            height: 600,
+            alt: "Director Series chair placeholder 2"
           }
         ],
         lastModified: new Date("2025-05-09T00:00:00.000Z")
@@ -42,11 +45,15 @@ export const collections: CategoryCollections = {
           name: "Director Executive Plus",
           description: "Premium executive chair with enhanced comfort features and luxurious materials",
           seoDescription: "Director Executive Plus - Premium executive chair with enhanced comfort features and luxurious finishes.",
+          imageUrl: "/images/collections/ergonomic-series-cover.webp",
           images: [{
             url: "/images/collections/ergonomic-series-cover.webp",
             width: 800,
-            height: 600
+            height: 600,
+            alt: "Director Executive Plus chair"
           }],
+          category: "chairs",
+          seriesId: "director-series",
           features: [
             "Premium leather upholstery",
             "Advanced ergonomic design",
@@ -59,6 +66,7 @@ export const collections: CategoryCollections = {
             "Weight Capacity": "400 lbs",
             "Warranty": "15 years"
           },
+          inStock: true,
           materials: ["Premium leather", "Aircraft-grade aluminum", "Memory foam"],
           dimensions: {
             width: "30 inches",
@@ -111,19 +119,22 @@ export const collections: CategoryCollections = {
         coverImage: {
           url: "/images/collections/designer-series-cover.webp",
           width: 800,
-          height: 600
+          height: 600,
+          alt: "Designer Series chair"
         },
         features: ["Modern Design", "Ergonomic Excellence", "Premium Quality"],
         images: [
           {
             url: "/images/collections/designer-series-placeholder1.webp",
             width: 800,
-            height: 600
+            height: 600,
+            alt: "Designer Series chair placeholder 1"
           },
           {
             url: "/images/collections/designer-series-placeholder2.webp",
             width: 800,
-            height: 600
+            height: 600,
+            alt: "Designer Series chair placeholder 2"
           }
         ],
         lastModified: new Date("2025-05-09T00:00:00.000Z")
@@ -134,12 +145,15 @@ export const collections: CategoryCollections = {
           name: "Designer Elite",
           description: "Modern designer chair with premium ergonomic features",
           seoDescription: "Designer Elite - Contemporary office chair combining modern aesthetics with advanced ergonomic features.",
+          imageUrl: "/images/collections/designer-series-placeholder1.webp",
           images: [{
             url: "/images/collections/designer-series-placeholder1.webp",
             width: 800,
             height: 600,
             alt: "Designer Elite Chair"
           }],
+          category: "chairs",
+          seriesId: "designer-series",
           features: [
             "Contemporary design",
             "Adjustable lumbar support",
@@ -152,6 +166,7 @@ export const collections: CategoryCollections = {
             "Weight Capacity": "350 lbs",
             "Warranty": "10 years"
           },
+          inStock: true,
           materials: ["Premium mesh", "Aircraft-grade aluminum", "High-density foam"],
           dimensions: {
             width: "28 inches",
@@ -166,12 +181,15 @@ export const collections: CategoryCollections = {
           name: "Designer Pro",
           description: "Professional-grade designer chair with enhanced features",
           seoDescription: "Designer Pro - Professional seating solution with advanced ergonomic features and sleek design.",
+          imageUrl: "/images/collections/designer-series-placeholder2.webp",
           images: [{
             url: "/images/collections/designer-series-placeholder2.webp",
             width: 800,
             height: 600,
             alt: "Designer Pro Chair"
           }],
+          category: "chairs",
+          seriesId: "designer-series",
           features: [
             "Professional design",
             "Enhanced lumbar system",
@@ -184,6 +202,7 @@ export const collections: CategoryCollections = {
             "Weight Capacity": "375 lbs",
             "Warranty": "10 years"
           },
+          inStock: true,
           materials: ["Premium mesh", "Aircraft-grade aluminum", "High-density foam"],
           dimensions: {
             width: "29 inches",
@@ -198,12 +217,15 @@ export const collections: CategoryCollections = {
           name: "Designer Comfort",
           description: "Luxurious designer chair focused on maximum comfort",
           seoDescription: "Designer Comfort - Where luxury meets ergonomics in a beautifully designed package.",
+          imageUrl: "/images/collections/designer-series-placeholder3.webp",
           images: [{
             url: "/images/collections/designer-series-placeholder3.webp",
             width: 800,
             height: 600,
             alt: "Designer Comfort Chair"
           }],
+          category: "chairs",
+          seriesId: "designer-series",
           features: [
             "Comfort-focused design",
             "Ultra-plush padding",
@@ -216,6 +238,7 @@ export const collections: CategoryCollections = {
             "Weight Capacity": "360 lbs",
             "Warranty": "10 years"
           },
+          inStock: true,
           materials: ["Premium fabric", "Aircraft-grade aluminum", "Ultra-plush foam"],
           dimensions: {
             width: "30 inches",
@@ -230,12 +253,15 @@ export const collections: CategoryCollections = {
           name: "Designer Executive",
           description: "Executive-style designer chair with premium features",
           seoDescription: "Designer Executive - Premium executive seating with contemporary design elements.",
+          imageUrl: "/images/collections/designer-series-placeholder4.webp",
           images: [{
             url: "/images/collections/designer-series-placeholder4.webp",
             width: 800,
             height: 600,
             alt: "Designer Executive Chair"
           }],
+          category: "chairs",
+          seriesId: "designer-series",
           features: [
             "Executive design",
             "Premium padding",
@@ -248,6 +274,7 @@ export const collections: CategoryCollections = {
             "Weight Capacity": "380 lbs",
             "Warranty": "10 years"
           },
+          inStock: true,
           materials: ["Premium leather", "Aircraft-grade aluminum", "Memory foam"],
           dimensions: {
             width: "31 inches",
@@ -262,12 +289,15 @@ export const collections: CategoryCollections = {
           name: "Designer Mesh",
           description: "Breathable mesh designer chair for all-day comfort",
           seoDescription: "Designer Mesh - Modern office chair with breathable mesh design for optimal comfort.",
+          imageUrl: "/images/collections/designer-series-placeholder5.webp",
           images: [{
             url: "/images/collections/designer-series-placeholder5.webp",
             width: 800,
             height: 600,
             alt: "Designer Mesh Chair"
           }],
+          category: "chairs",
+          seriesId: "designer-series",
           features: [
             "Full mesh design",
             "Breathable back",
@@ -280,6 +310,7 @@ export const collections: CategoryCollections = {
             "Weight Capacity": "340 lbs",
             "Warranty": "10 years"
           },
+          inStock: true,
           materials: ["Premium mesh", "Aircraft-grade aluminum", "Contoured foam"],
           dimensions: {
             width: "28 inches",
@@ -294,12 +325,15 @@ export const collections: CategoryCollections = {
           name: "Designer Plus",
           description: "Enhanced designer chair with additional features",
           seoDescription: "Designer Plus - Premium office chair with enhanced features and modern aesthetics.",
+          imageUrl: "/images/collections/designer-series-placeholder6.webp",
           images: [{
             url: "/images/collections/designer-series-placeholder6.webp",
             width: 800,
             height: 600,
             alt: "Designer Plus Chair"
           }],
+          category: "chairs",
+          seriesId: "designer-series",
           features: [
             "Enhanced design",
             "Premium support",
@@ -312,6 +346,7 @@ export const collections: CategoryCollections = {
             "Weight Capacity": "365 lbs",
             "Warranty": "10 years"
           },
+          inStock: true,
           materials: ["Premium hybrid materials", "Aircraft-grade aluminum", "Dual-density foam"],
           dimensions: {
             width: "29 inches",
@@ -364,19 +399,22 @@ export const collections: CategoryCollections = {
         coverImage: {
           url: "/images/collections/executive-series-cover.webp",
           width: 800,
-          height: 600
+          height: 600,
+          alt: "Executive Series chair cover"
         },
         features: ["Luxury Design", "Premium Comfort", "Executive Features"],
         images: [
           {
             url: "/images/collections/executive-series-placeholder1.webp",
             width: 800,
-            height: 600
+            height: 600,
+            alt: "Executive Series chair placeholder 1"
           },
           {
             url: "/images/collections/executive-series-placeholder2.webp",
             width: 800,
-            height: 600
+            height: 600,
+            alt: "Executive Series chair placeholder 2"
           }
         ],
         lastModified: new Date("2025-05-09T00:00:00.000Z")
@@ -387,11 +425,15 @@ export const collections: CategoryCollections = {
           name: "Executive Premium",
           description: "Luxury executive chair with premium leather and advanced features",
           seoDescription: "Executive Premium - Luxury office chair featuring premium leather and sophisticated comfort features.",
+          imageUrl: "/images/collections/executive-series-cover.webp",
           images: [{
             url: "/images/collections/executive-series-cover.webp",
             width: 800,
-            height: 600
+            height: 600,
+            alt: "Executive Premium chair"
           }],
+          category: "chairs",
+          seriesId: "executive-series",
           features: [
             "Full-grain leather",
             "Dynamic recline",
@@ -404,6 +446,7 @@ export const collections: CategoryCollections = {
             "Weight Capacity": "450 lbs",
             "Warranty": "20 years"
           },
+          inStock: true,
           materials: ["Full-grain leather", "Polished aluminum", "Memory foam"],
           dimensions: {
             width: "32 inches",
@@ -456,19 +499,22 @@ export const collections: CategoryCollections = {
         coverImage: {
           url: "/images/collections/ergonomic-series-cover.webp",
           width: 800,
-          height: 600
+          height: 600,
+          alt: "Ergonomic Series chair cover"
         },
         features: ["Advanced Ergonomics", "Health-Focused", "Adjustable Support"],
         images: [
           {
             url: "/images/collections/ergonomic-series-placeholder1.webp",
             width: 800,
-            height: 600
+            height: 600,
+            alt: "Ergonomic Series chair placeholder 1"
           },
           {
             url: "/images/collections/ergonomic-series-placeholder2.webp",
             width: 800,
-            height: 600
+            height: 600,
+            alt: "Ergonomic Series chair placeholder 2"
           }
         ],
         lastModified: new Date("2025-05-09T00:00:00.000Z")
@@ -479,11 +525,15 @@ export const collections: CategoryCollections = {
           name: "Ergonomic Pro",
           description: "Advanced ergonomic chair with comprehensive adjustment options",
           seoDescription: "Ergonomic Pro - Advanced office chair with scientifically-designed comfort features and extensive adjustability.",
+          imageUrl: "/images/collections/ergonomic-series-cover.webp",
           images: [{
             url: "/images/collections/ergonomic-series-cover.webp",
             width: 800,
-            height: 600
+            height: 600,
+            alt: "Ergonomic Pro chair"
           }],
+          category: "chairs",
+          seriesId: "ergonomic-series",
           features: [
             "Advanced lumbar system",
             "Independent seat tilt",
@@ -496,6 +546,7 @@ export const collections: CategoryCollections = {
             "Weight Capacity": "375 lbs",
             "Warranty": "12 years"
           },
+          inStock: true,
           materials: ["Engineered mesh", "Reinforced polymer", "Contoured foam"],
           dimensions: {
             width: "29 inches",
@@ -550,19 +601,22 @@ export const collections: CategoryCollections = {
         coverImage: {
           url: "/images/collections/executive-series-cover.webp",
           width: 800,
-          height: 600
+          height: 600,
+          alt: "Executive Collection desk cover"
         },
         features: ["Executive Design", "Premium Materials", "Integrated Storage"],
         images: [
           {
             url: "/images/desks/executive-series/placeholder1.webp",
             width: 800,
-            height: 600
+            height: 600,
+            alt: "Executive Collection desk placeholder 1"
           },
           {
             url: "/images/desks/executive-series/placeholder2.webp",
             width: 800,
-            height: 600
+            height: 600,
+            alt: "Executive Collection desk placeholder 2"
           }
         ],
         lastModified: new Date("2025-05-11T00:00:00.000Z")
@@ -593,19 +647,22 @@ export const collections: CategoryCollections = {
         coverImage: {
           url: "/images/collections/executive-series-cover.webp",
           width: 800,
-          height: 600
+          height: 600,
+          alt: "Executive Storage Collection cover"
         },
         features: ["Executive Design", "Premium Materials", "Organized Storage"],
         images: [
           {
             url: "/images/storage/executive-series/placeholder1.webp",
             width: 800,
-            height: 600
+            height: 600,
+            alt: "Executive Storage placeholder 1"
           },
           {
             url: "/images/storage/executive-series/placeholder2.webp",
             width: 800,
-            height: 600
+            height: 600,
+            alt: "Executive Storage placeholder 2"
           }
         ],
         lastModified: new Date("2025-05-11T00:00:00.000Z")
@@ -623,5 +680,10 @@ export const collections: CategoryCollections = {
       lastModified: formatDate(new Date("2025-05-11T00:00:00.000Z")),
       products: {}
     }
-  }
+  },
+  "storage-solutions": {},
+  "school-furniture": {},
+  "hospital-furniture": {},
+  "racking-systems": {},
+  "modular-furniture": {}
 };
