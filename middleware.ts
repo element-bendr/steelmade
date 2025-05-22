@@ -6,7 +6,6 @@ export function middleware(request: NextRequest) {
   if (!request.nextUrl.pathname.startsWith("/admin")) {
     return NextResponse.next();
   }
-
   const authHeader = request.headers.get("authorization");
   
   if (!authHeader || !authHeader.startsWith("Basic ")) {
@@ -19,8 +18,10 @@ export function middleware(request: NextRequest) {
     });
   }
 
+  // Using TextEncoder/TextDecoder instead of Buffer for Edge Runtime compatibility
   const base64Credentials = authHeader.split(" ")[1];
-  const credentials = Buffer.from(base64Credentials, "base64").toString("utf-8");
+  // Decode base64 string without using Buffer (Edge Runtime compatible)
+  const credentials = atob(base64Credentials);
   const [username, password] = credentials.split(":");
 
   if (

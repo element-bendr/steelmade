@@ -3,7 +3,8 @@
 /**
  * @type {import('next').NextConfig}
  **/
-const nextConfig = {  images: {
+const nextConfig = {  
+  images: {
     domains: [
       'steelmade-products.cdn.com'
     ],
@@ -17,35 +18,27 @@ const nextConfig = {  images: {
   experimental: {
     // optimizeCss: true, // Disabled to prevent Maximum call stack size exceeded error
     optimizePackageImports: ['@radix-ui/react-icons'],
+    webpackBuildWorker: true // Enable for better handling of complex builds
   },
   reactStrictMode: true,
-  swcMinify: true,
-  webpack: (config, { isServer }) => {
+  swcMinify: true,  webpack: (config, { isServer }) => {
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack']
     });
     return config;
-  },  async redirects() {
+  },  
+  // Simplified redirects to avoid regex complexity issues
+  async redirects() {
     return [
-      // {
-      //   source: '/:category/:seriesId',
-      //   destination: '/products/:category/:seriesId',
-      //   permanent: true
-      // },
       {
-        source: '/collections/:category/:seriesId',
-        destination: '/:category/:seriesId', // Updated destination
+        source: '/collections/:path*',
+        destination: '/:path*',
         permanent: true
       },
-      { // New redirect for old product URLs
-        source: '/products/:category/:seriesId/:productId',
-        destination: '/:category/:seriesId/:productId',
-        permanent: true
-      },
-      { // Added redirect for series pages under /products
-        source: '/products/:category/:seriesId',
-        destination: '/:category/:seriesId',
+      {
+        source: '/products/:path*',
+        destination: '/:path*',
         permanent: true
       }
     ]
