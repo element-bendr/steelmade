@@ -43,7 +43,7 @@ export default async function ModularFurniturePage() {
   }
 
   const seriesData = (categoryData.series || []).reduce((acc: Record<string, import("@/types/collections").SeriesMetadata>, series: import("@/types/collections").SeriesMetadata) => {
-    acc[series.id] = series; // Changed series.slug to series.id
+    acc[series.id] = { ...series, features: series.features || [] }; // Ensure features is an array
     return acc;
   }, {} as Record<string, import("@/types/collections").SeriesMetadata>);
 
