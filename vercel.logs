@@ -1,354 +1,353 @@
- [16:21:56.147] Running build in Washington, D.C., USA (East) – iad1
-[16:21:56.148] Build machine configuration: 2 cores, 8 GB
-[16:21:56.194] Retrieving list of deployment files...
-[16:21:56.204] Skipping build cache, deployment was triggered without cache.
-[16:21:56.605] Downloading 316 deployment files...
-[16:21:58.756] Running "vercel build"
-[16:21:59.190] Vercel CLI 42.1.1
-[16:21:59.516] Installing dependencies...
-[16:22:03.076] npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
-[16:22:03.289] npm warn deprecated querystring@0.2.0: The querystring API is considered Legacy. new code should use the URLSearchParams API instead.
-[16:22:03.930] npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
-[16:22:05.669] npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
-[16:22:05.789] npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
-[16:22:06.178] npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
-[16:22:06.621] npm warn deprecated glob@7.1.7: Glob versions prior to v9 are no longer supported
-[16:22:09.171] npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
-[16:22:19.233] 
-[16:22:19.234] added 773 packages in 19s
-[16:22:19.234] 
-[16:22:19.235] 185 packages are looking for funding
-[16:22:19.235]   run `npm fund` for details
-[16:22:19.416] Detected Next.js version: 14.0.0
-[16:22:19.420] Running "npm run build"
-[16:22:19.667] 
-[16:22:19.667] > steelmadewebsite@1.0.0 build
-[16:22:19.667] > next build
-[16:22:19.667] 
-[16:22:20.961] Attention: Next.js now collects completely anonymous telemetry regarding usage.
-[16:22:20.961] This information is used to shape Next.js' roadmap and prioritize features.
-[16:22:20.961] You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-[16:22:20.961] https://nextjs.org/telemetry
-[16:22:20.962] 
-[16:22:21.130]    ▲ Next.js 14.0.0
-[16:22:21.130]    - Environments: .env
-[16:22:21.131]    - Experiments (use at your own risk):
-[16:22:21.131]      · optimizeCss
-[16:22:21.131] 
-[16:22:21.131]    Creating an optimized production build ...
-[16:22:21.378]  ⚠ Custom webpack configuration is detected. When using a custom webpack configuration, the Webpack build worker is disabled by default. To force enable it, set the "experimental.webpackBuildWorker" option to "true". Read more: https://nextjs.org/docs/messages/webpack-build-worker-opt-out
-[16:22:37.125]  ⚠ Compiled with warnings
-[16:22:37.125] 
-[16:22:37.126] ./node_modules/next/dist/esm/shared/lib/router/utils/app-paths.js
-[16:22:37.126] A Node.js module is loaded ('url' at line 3) which is not supported in the Edge Runtime.
-[16:22:37.126] Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime
-[16:22:37.126] 
-[16:22:37.126] Import trace for requested module:
-[16:22:37.127] ./node_modules/next/dist/esm/shared/lib/router/utils/app-paths.js
-[16:22:37.127] 
-[16:22:37.127]    Linting and checking validity of types ...
-[16:22:49.765]    Collecting page data ...
-[16:22:50.221] All series in generateStaticParams: {
-[16:22:50.221]   'designer-series': {
-[16:22:50.221]     id: 'designer-series',
-[16:22:50.221]     title: 'Designer Series',
-[16:22:50.221]     description: 'Premium ergonomic chairs designed for modern workspaces',
-[16:22:50.221]     seoDescription: 'Explore our Designer Series of premium ergonomic chairs, offering comfort and style for modern offices.',
-[16:22:50.221]     category: 'chairs',
-[16:22:50.222]     imageUrl: '/images/collections/chairs/designer-series-cover.webp',
-[16:22:50.222]     coverImage: {
-[16:22:50.222]       url: '/images/collections/chairs/designer-series-cover.webp',
-[16:22:50.222]       alt: 'Designer Series ergonomic chair',
-[16:22:50.222]       width: 800,
-[16:22:50.222]       height: 600
-[16:22:50.222]     },
-[16:22:50.222]     images: [ [Object] ],
-[16:22:50.222]     features: [
-[16:22:50.222]       'Ergonomic Design',
-[16:22:50.222]       'Premium Materials',
-[16:22:50.222]       'Adjustable Components',
-[16:22:50.222]       'Modern Aesthetics'
-[16:22:50.222]     ],
-[16:22:50.222]     specifications: {
-[16:22:50.222]       Material: 'Premium leather and steel',
-[16:22:50.222]       'Weight Capacity': '300 lbs',
-[16:22:50.222]       'Adjustable Height': 'Yes',
-[16:22:50.222]       Warranty: '5 years'
-[16:22:50.222]     },
-[16:22:50.222]     lastModified: '2025-05-22T10:52:50.193Z',
-[16:22:50.222]     products: {}
-[16:22:50.222]   }
-[16:22:50.222] }
-[16:22:50.251] All series in generateStaticParams: {
-[16:22:50.252]   'patient-care': {
-[16:22:50.252]     id: 'patient-care',
-[16:22:50.252]     title: 'Patient Care Series',
-[16:22:50.252]     description: 'Specialized furniture for healthcare facilities',
-[16:22:50.253]     seoDescription: 'Support healing environments with our Patient Care Series, designed for safety and comfort in healthcare.',
-[16:22:50.253]     category: 'hospital-furniture',
-[16:22:50.253]     imageUrl: '/images/collections/hospital-furniture/patient-care-cover.webp',
-[16:22:50.253]     coverImage: {
-[16:22:50.254]       url: '/images/collections/hospital-furniture/patient-care-cover.webp',
-[16:22:50.260]       alt: 'Patient Care Series furniture',
-[16:22:50.260]       width: 800,
-[16:22:50.261]       height: 600
-[16:22:50.261]     },
-[16:22:50.261]     images: [ [Object] ],
-[16:22:50.261]     features: [ 'Medical Grade Materials', 'Easy to Clean', 'Patient Comfort' ],
-[16:22:50.261]     lastModified: '2025-05-22T10:52:50.193Z',
-[16:22:50.262]     products: {}
-[16:22:50.262]   },
-[16:22:50.262]   'patient-room': {
-[16:22:50.262]     id: 'patient-room',
-[16:22:50.262]     title: 'Patient Room Solutions',
-[16:22:50.263]     description: 'Comprehensive furniture solutions for patient rooms.',
-[16:22:50.263]     seoDescription: 'Furnish patient rooms with our durable and functional furniture, designed for comfort and caregiver efficiency.',
-[16:22:50.263]     category: 'hospital-furniture',
-[16:22:50.263]     imageUrl: '/images/collections/hospital-furniture/patient-room-cover.webp',
-[16:22:50.264]     coverImage: {
-[16:22:50.264]       url: '/images/collections/hospital-furniture/patient-room-cover.webp',
-[16:22:50.264]       alt: 'Patient Room Solutions',
-[16:22:50.264]       width: 800,
-[16:22:50.266]       height: 600
-[16:22:50.266]     },
-[16:22:50.266]     images: [ [Object] ],
-[16:22:50.266]     features: [
-[16:22:50.266]       'Comfortable Design',
-[16:22:50.266]       'Easy Accessibility',
-[16:22:50.266]       'Durable Construction'
-[16:22:50.266]     ],
-[16:22:50.266]     lastModified: '2025-05-22T10:52:50.193Z',
-[16:22:50.266]     products: {}
-[16:22:50.266]   }
-[16:22:50.266] }
-[16:22:50.274] All series in generateStaticParams: {
-[16:22:50.275]   'heavy-duty-racking': {
-[16:22:50.275]     id: 'heavy-duty-racking',
-[16:22:50.275]     title: 'Heavy Duty Racking',
-[16:22:50.275]     description: 'Robust racking systems for industrial storage.',
-[16:22:50.275]     seoDescription: 'Maximize your warehouse efficiency with our Heavy Duty Racking systems, built for strength and durability.',
-[16:22:50.275]     category: 'racking-systems',
-[16:22:50.275]     imageUrl: '/images/collections/racking-systems/heavy-duty-racking-cover.webp',
-[16:22:50.278]     coverImage: {
-[16:22:50.278]       url: '/images/collections/racking-systems/heavy-duty-racking-cover.webp',
-[16:22:50.278]       alt: 'Heavy Duty Racking System',
-[16:22:50.278]       width: 800,
-[16:22:50.278]       height: 600
-[16:22:50.278]     },
-[16:22:50.279]     images: [ [Object] ],
-[16:22:50.279]     features: [
-[16:22:50.280]       'High Load Capacity',
-[16:22:50.280]       'Durable Steel Construction',
-[16:22:50.280]       'Adjustable Shelf Heights',
-[16:22:50.280]       'Warehouse Optimization'
-[16:22:50.280]     ],
-[16:22:50.280]     specifications: {
-[16:22:50.280]       Material: 'Industrial Grade Steel',
-[16:22:50.280]       'Load Capacity': 'Up to 5000 kg per level',
-[16:22:50.280]       'Standard Sizes': 'Various standard sizes available',
-[16:22:50.280]       Customization: 'Available on request'
-[16:22:50.280]     },
-[16:22:50.280]     lastModified: '2025-05-22T10:52:50.193Z',
-[16:22:50.281]     products: {}
-[16:22:50.281]   },
-[16:22:50.281]   'pallet-racks': {
-[16:22:50.281]     id: 'pallet-racks',
-[16:22:50.281]     title: 'Pallet Racks',
-[16:22:50.281]     description: 'Versatile pallet racking systems for various storage needs.',
-[16:22:50.281]     seoDescription: 'Optimize your warehouse with our versatile and sturdy pallet racking systems.',
-[16:22:50.281]     category: 'racking-systems',
-[16:22:50.281]     imageUrl: '/images/collections/racking-systems/pallet-racks-cover.webp',
-[16:22:50.281]     coverImage: {
-[16:22:50.281]       url: '/images/collections/racking-systems/pallet-racks-cover.webp',
-[16:22:50.281]       alt: 'Pallet Racking System',
-[16:22:50.281]       width: 800,
-[16:22:50.282]       height: 600
-[16:22:50.282]     },
-[16:22:50.282]     images: [ [Object] ],
-[16:22:50.282]     features: [
-[16:22:50.282]       'High Load Capacity',
-[16:22:50.282]       'Adjustable Configuration',
-[16:22:50.282]       'Warehouse Efficiency'
-[16:22:50.282]     ],
-[16:22:50.282]     lastModified: '2025-05-22T10:52:50.193Z',
-[16:22:50.282]     products: {}
-[16:22:50.282]   }
-[16:22:50.282] }
-[16:22:50.286] All series in generateStaticParams: {
-[16:22:50.286]   'classroom-essentials': {
-[16:22:50.287]     id: 'classroom-essentials',
-[16:22:50.287]     title: 'Classroom Essentials',
-[16:22:50.287]     description: 'Durable furniture for educational environments',
-[16:22:50.287]     seoDescription: 'Equip your learning spaces with our Classroom Essentials, built for durability and student engagement.',
-[16:22:50.287]     category: 'school-furniture',
-[16:22:50.287]     imageUrl: '/images/collections/school-furniture/classroom-essentials-cover.webp',
-[16:22:50.287]     coverImage: {
-[16:22:50.287]       url: '/images/collections/school-furniture/classroom-essentials-cover.webp',
-[16:22:50.287]       alt: 'Classroom Essentials furniture',
-[16:22:50.287]       width: 800,
-[16:22:50.287]       height: 600
-[16:22:50.287]     },
-[16:22:50.287]     images: [ [Object] ],
-[16:22:50.288]     features: [
-[16:22:50.288]       'Student-Safe Materials',
-[16:22:50.288]       'Heavy-Duty Use',
-[16:22:50.288]       'Ergonomic for Kids'
-[16:22:50.288]     ],
-[16:22:50.288]     lastModified: '2025-05-22T10:52:50.193Z',
-[16:22:50.288]     products: {}
-[16:22:50.288]   },
-[16:22:50.288]   'classroom-seating': {
-[16:22:50.288]     id: 'classroom-seating',
-[16:22:50.288]     title: 'Classroom Seating',
-[16:22:50.288]     description: 'Comfortable and durable seating solutions for classrooms.',
-[16:22:50.288]     seoDescription: 'Discover our Classroom Seating collection, designed for student comfort and engagement.',
-[16:22:50.289]     category: 'school-furniture',
-[16:22:50.289]     imageUrl: '/images/collections/school-furniture/classroom-seating-cover.webp',
-[16:22:50.289]     coverImage: {
-[16:22:50.289]       url: '/images/collections/school-furniture/classroom-seating-cover.webp',
-[16:22:50.289]       alt: 'Classroom Seating',
-[16:22:50.289]       width: 800,
-[16:22:50.289]       height: 600
-[16:22:50.289]     },
-[16:22:50.289]     images: [ [Object] ],
-[16:22:50.289]     features: [ 'Ergonomic Design', 'Durable Materials', 'Stackable Options' ],
-[16:22:50.289]     lastModified: '2025-05-22T10:52:50.193Z',
-[16:22:50.289]     products: {}
-[16:22:50.289]   }
-[16:22:50.289] }
-[16:22:51.664]    Generating static pages (0/35) ...
-[16:22:51.910] Time 16.148877
-[16:22:51.950] Time 1.438299
-[16:22:52.151] [ChairSeriesPage] params.seriesId: designer-series
-[16:22:52.151] [ChairSeriesPage] params.seriesId: designer-series
-[16:22:52.236] 
+ [17:01:41.129] Running build in Washington, D.C., USA (East) – iad1
+[17:01:41.132] Build machine configuration: 2 cores, 8 GB
+[17:01:41.188] Retrieving list of deployment files...
+[17:01:41.202] Skipping build cache, deployment was triggered without cache.
+[17:01:41.597] Downloading 315 deployment files...
+[17:01:45.984] Running "vercel build"
+[17:01:46.517] Vercel CLI 42.1.1
+[17:01:46.971] Installing dependencies...
+[17:01:50.200] npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+[17:01:50.567] npm warn deprecated querystring@0.2.0: The querystring API is considered Legacy. new code should use the URLSearchParams API instead.
+[17:01:51.110] npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+[17:01:53.084] npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
+[17:01:53.085] npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
+[17:01:53.593] npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+[17:01:54.080] npm warn deprecated glob@7.1.7: Glob versions prior to v9 are no longer supported
+[17:02:04.420] 
+[17:02:04.421] added 773 packages in 17s
+[17:02:04.421] 
+[17:02:04.421] 185 packages are looking for funding
+[17:02:04.421]   run `npm fund` for details
+[17:02:04.565] Detected Next.js version: 14.0.0
+[17:02:04.571] Running "npm run build"
+[17:02:04.812] 
+[17:02:04.813] > steelmadewebsite@1.0.0 build
+[17:02:04.813] > next build
+[17:02:04.813] 
+[17:02:06.061] Attention: Next.js now collects completely anonymous telemetry regarding usage.
+[17:02:06.063] This information is used to shape Next.js' roadmap and prioritize features.
+[17:02:06.063] You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+[17:02:06.063] https://nextjs.org/telemetry
+[17:02:06.063] 
+[17:02:06.218]    ▲ Next.js 14.0.0
+[17:02:06.218]    - Environments: .env
+[17:02:06.219]    - Experiments (use at your own risk):
+[17:02:06.220]      · optimizeCss
+[17:02:06.221] 
+[17:02:06.221]    Creating an optimized production build ...
+[17:02:06.480]  ⚠ Custom webpack configuration is detected. When using a custom webpack configuration, the Webpack build worker is disabled by default. To force enable it, set the "experimental.webpackBuildWorker" option to "true". Read more: https://nextjs.org/docs/messages/webpack-build-worker-opt-out
+[17:02:22.714]  ⚠ Compiled with warnings
+[17:02:22.714] 
+[17:02:22.715] ./node_modules/next/dist/esm/shared/lib/router/utils/app-paths.js
+[17:02:22.715] A Node.js module is loaded ('url' at line 3) which is not supported in the Edge Runtime.
+[17:02:22.715] Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime
+[17:02:22.715] 
+[17:02:22.716] Import trace for requested module:
+[17:02:22.716] ./node_modules/next/dist/esm/shared/lib/router/utils/app-paths.js
+[17:02:22.716] 
+[17:02:22.717]    Linting and checking validity of types ...
+[17:02:35.592]    Collecting page data ...
+[17:02:36.080] All series in generateStaticParams: {
+[17:02:36.081]   'designer-series': {
+[17:02:36.081]     id: 'designer-series',
+[17:02:36.081]     title: 'Designer Series',
+[17:02:36.081]     description: 'Premium ergonomic chairs designed for modern workspaces',
+[17:02:36.081]     seoDescription: 'Explore our Designer Series of premium ergonomic chairs, offering comfort and style for modern offices.',
+[17:02:36.081]     category: 'chairs',
+[17:02:36.082]     imageUrl: '/images/collections/chairs/designer-series-cover.webp',
+[17:02:36.082]     coverImage: {
+[17:02:36.082]       url: '/images/collections/chairs/designer-series-cover.webp',
+[17:02:36.082]       alt: 'Designer Series ergonomic chair',
+[17:02:36.082]       width: 800,
+[17:02:36.082]       height: 600
+[17:02:36.082]     },
+[17:02:36.082]     images: [ [Object] ],
+[17:02:36.082]     features: [
+[17:02:36.082]       'Ergonomic Design',
+[17:02:36.082]       'Premium Materials',
+[17:02:36.083]       'Adjustable Components',
+[17:02:36.083]       'Modern Aesthetics'
+[17:02:36.083]     ],
+[17:02:36.083]     specifications: {
+[17:02:36.083]       Material: 'Premium leather and steel',
+[17:02:36.083]       'Weight Capacity': '300 lbs',
+[17:02:36.083]       'Adjustable Height': 'Yes',
+[17:02:36.083]       Warranty: '5 years'
+[17:02:36.083]     },
+[17:02:36.083]     lastModified: '2025-05-22T11:32:36.049Z',
+[17:02:36.084]     products: {}
+[17:02:36.084]   }
+[17:02:36.084] }
+[17:02:36.116] All series in generateStaticParams: {
+[17:02:36.116]   'patient-care': {
+[17:02:36.116]     id: 'patient-care',
+[17:02:36.116]     title: 'Patient Care Series',
+[17:02:36.117]     description: 'Specialized furniture for healthcare facilities',
+[17:02:36.117]     seoDescription: 'Support healing environments with our Patient Care Series, designed for safety and comfort in healthcare.',
+[17:02:36.117]     category: 'hospital-furniture',
+[17:02:36.117]     imageUrl: '/images/collections/hospital-furniture/patient-care-cover.webp',
+[17:02:36.117]     coverImage: {
+[17:02:36.117]       url: '/images/collections/hospital-furniture/patient-care-cover.webp',
+[17:02:36.117]       alt: 'Patient Care Series furniture',
+[17:02:36.117]       width: 800,
+[17:02:36.117]       height: 600
+[17:02:36.117]     },
+[17:02:36.117]     images: [ [Object] ],
+[17:02:36.118]     features: [ 'Medical Grade Materials', 'Easy to Clean', 'Patient Comfort' ],
+[17:02:36.118]     lastModified: '2025-05-22T11:32:36.049Z',
+[17:02:36.118]     products: {}
+[17:02:36.118]   },
+[17:02:36.118]   'patient-room': {
+[17:02:36.119]     id: 'patient-room',
+[17:02:36.119]     title: 'Patient Room Solutions',
+[17:02:36.119]     description: 'Comprehensive furniture solutions for patient rooms.',
+[17:02:36.119]     seoDescription: 'Furnish patient rooms with our durable and functional furniture, designed for comfort and caregiver efficiency.',
+[17:02:36.119]     category: 'hospital-furniture',
+[17:02:36.119]     imageUrl: '/images/collections/hospital-furniture/patient-room-cover.webp',
+[17:02:36.119]     coverImage: {
+[17:02:36.119]       url: '/images/collections/hospital-furniture/patient-room-cover.webp',
+[17:02:36.119]       alt: 'Patient Room Solutions',
+[17:02:36.119]       width: 800,
+[17:02:36.119]       height: 600
+[17:02:36.119]     },
+[17:02:36.119]     images: [ [Object] ],
+[17:02:36.120]     features: [
+[17:02:36.120]       'Comfortable Design',
+[17:02:36.120]       'Easy Accessibility',
+[17:02:36.120]       'Durable Construction'
+[17:02:36.120]     ],
+[17:02:36.120]     lastModified: '2025-05-22T11:32:36.049Z',
+[17:02:36.120]     products: {}
+[17:02:36.120]   }
+[17:02:36.120] }
+[17:02:36.141] All series in generateStaticParams: {
+[17:02:36.141]   'heavy-duty-racking': {
+[17:02:36.142]     id: 'heavy-duty-racking',
+[17:02:36.142]     title: 'Heavy Duty Racking',
+[17:02:36.142]     description: 'Robust racking systems for industrial storage.',
+[17:02:36.143]     seoDescription: 'Maximize your warehouse efficiency with our Heavy Duty Racking systems, built for strength and durability.',
+[17:02:36.143]     category: 'racking-systems',
+[17:02:36.143]     imageUrl: '/images/collections/racking-systems/heavy-duty-racking-cover.webp',
+[17:02:36.146]     coverImage: {
+[17:02:36.146]       url: '/images/collections/racking-systems/heavy-duty-racking-cover.webp',
+[17:02:36.146]       alt: 'Heavy Duty Racking System',
+[17:02:36.147]       width: 800,
+[17:02:36.147]       height: 600
+[17:02:36.147]     },
+[17:02:36.147]     images: [ [Object] ],
+[17:02:36.147]     features: [
+[17:02:36.149]       'High Load Capacity',
+[17:02:36.149]       'Durable Steel Construction',
+[17:02:36.149]       'Adjustable Shelf Heights',
+[17:02:36.149]       'Warehouse Optimization'
+[17:02:36.149]     ],
+[17:02:36.149]     specifications: {
+[17:02:36.150]       Material: 'Industrial Grade Steel',
+[17:02:36.150]       'Load Capacity': 'Up to 5000 kg per level',
+[17:02:36.150]       'Standard Sizes': 'Various standard sizes available',
+[17:02:36.150]       Customization: 'Available on request'
+[17:02:36.150]     },
+[17:02:36.150]     lastModified: '2025-05-22T11:32:36.049Z',
+[17:02:36.150]     products: {}
+[17:02:36.151]   },
+[17:02:36.151]   'pallet-racks': {
+[17:02:36.151]     id: 'pallet-racks',
+[17:02:36.151]     title: 'Pallet Racks',
+[17:02:36.151]     description: 'Versatile pallet racking systems for various storage needs.',
+[17:02:36.151]     seoDescription: 'Optimize your warehouse with our versatile and sturdy pallet racking systems.',
+[17:02:36.151]     category: 'racking-systems',
+[17:02:36.152]     imageUrl: '/images/collections/racking-systems/pallet-racks-cover.webp',
+[17:02:36.152]     coverImage: {
+[17:02:36.152]       url: '/images/collections/racking-systems/pallet-racks-cover.webp',
+[17:02:36.152]       alt: 'Pallet Racking System',
+[17:02:36.152]       width: 800,
+[17:02:36.152]       height: 600
+[17:02:36.153]     },
+[17:02:36.153]     images: [ [Object] ],
+[17:02:36.153]     features: [
+[17:02:36.153]       'High Load Capacity',
+[17:02:36.153]       'Adjustable Configuration',
+[17:02:36.153]       'Warehouse Efficiency'
+[17:02:36.154]     ],
+[17:02:36.154]     lastModified: '2025-05-22T11:32:36.049Z',
+[17:02:36.154]     products: {}
+[17:02:36.154]   }
+[17:02:36.154] }
+[17:02:36.157] All series in generateStaticParams: {
+[17:02:36.157]   'classroom-essentials': {
+[17:02:36.157]     id: 'classroom-essentials',
+[17:02:36.157]     title: 'Classroom Essentials',
+[17:02:36.158]     description: 'Durable furniture for educational environments',
+[17:02:36.158]     seoDescription: 'Equip your learning spaces with our Classroom Essentials, built for durability and student engagement.',
+[17:02:36.158]     category: 'school-furniture',
+[17:02:36.158]     imageUrl: '/images/collections/school-furniture/classroom-essentials-cover.webp',
+[17:02:36.158]     coverImage: {
+[17:02:36.159]       url: '/images/collections/school-furniture/classroom-essentials-cover.webp',
+[17:02:36.159]       alt: 'Classroom Essentials furniture',
+[17:02:36.159]       width: 800,
+[17:02:36.159]       height: 600
+[17:02:36.159]     },
+[17:02:36.160]     images: [ [Object] ],
+[17:02:36.160]     features: [
+[17:02:36.160]       'Student-Safe Materials',
+[17:02:36.160]       'Heavy-Duty Use',
+[17:02:36.160]       'Ergonomic for Kids'
+[17:02:36.160]     ],
+[17:02:36.161]     lastModified: '2025-05-22T11:32:36.049Z',
+[17:02:36.161]     products: {}
+[17:02:36.161]   },
+[17:02:36.161]   'classroom-seating': {
+[17:02:36.161]     id: 'classroom-seating',
+[17:02:36.162]     title: 'Classroom Seating',
+[17:02:36.162]     description: 'Comfortable and durable seating solutions for classrooms.',
+[17:02:36.162]     seoDescription: 'Discover our Classroom Seating collection, designed for student comfort and engagement.',
+[17:02:36.162]     category: 'school-furniture',
+[17:02:36.162]     imageUrl: '/images/collections/school-furniture/classroom-seating-cover.webp',
+[17:02:36.163]     coverImage: {
+[17:02:36.163]       url: '/images/collections/school-furniture/classroom-seating-cover.webp',
+[17:02:36.163]       alt: 'Classroom Seating',
+[17:02:36.163]       width: 800,
+[17:02:36.163]       height: 600
+[17:02:36.164]     },
+[17:02:36.164]     images: [ [Object] ],
+[17:02:36.164]     features: [ 'Ergonomic Design', 'Durable Materials', 'Stackable Options' ],
+[17:02:36.164]     lastModified: '2025-05-22T11:32:36.049Z',
+[17:02:36.164]     products: {}
+[17:02:36.164]   }
+[17:02:36.165] }
+[17:02:37.588]    Generating static pages (0/35) ...
+[17:02:37.907] Time 8.57264
+[17:02:37.927] Time 1.554443
+[17:02:38.493] [ChairSeriesPage] params.seriesId: designer-series
+[17:02:38.493] [ChairSeriesPage] params.seriesId: designer-series
+[17:02:38.602] 
    Generating static pages (8/35) 
-[16:22:52.592] Attempting to load image: {
-[16:22:52.593]   imageUrl: '/images/collections/chairs/designer-series-cover.webp',
-[16:22:52.593]   imageSrc: '/images/collections/chairs/designer-series-cover.webp',
-[16:22:52.593]   isLocalImage: true
-[16:22:52.594] }
-[16:22:53.277] Attempting to load image: {
-[16:22:53.277]   imageUrl: '/images/collections/desks/standing-desk-cover.webp',
-[16:22:53.278]   imageSrc: '/images/collections/desks/standing-desk-cover.webp',
-[16:22:53.278]   isLocalImage: true
-[16:22:53.278] }
-[16:22:53.420] [HospitalFurnitureSeriesPage] params.seriesId: patient-care
-[16:22:53.425] [HospitalFurnitureSeriesPage] params.seriesId: patient-care
-[16:22:53.670] [HospitalFurnitureSeriesPage] params.seriesId: patient-room
-[16:22:53.670] [HospitalFurnitureSeriesPage] params.seriesId: patient-room
-[16:22:54.233] Attempting to load image: {
-[16:22:54.234]   imageUrl: '/images/collections/hospital-furniture/patient-care-cover.webp',
-[16:22:54.234]   imageSrc: '/images/collections/hospital-furniture/patient-care-cover.webp',
-[16:22:54.234]   isLocalImage: true
-[16:22:54.234] }
-[16:22:54.234] Attempting to load image: {
-[16:22:54.235]   imageUrl: '/images/collections/hospital-furniture/patient-room-cover.webp',
-[16:22:54.235]   imageSrc: '/images/collections/hospital-furniture/patient-room-cover.webp',
-[16:22:54.235]   isLocalImage: true
-[16:22:54.235] }
-[16:22:54.236] 
+[17:02:38.948] Attempting to load image: {
+[17:02:38.948]   imageUrl: '/images/collections/chairs/designer-series-cover.webp',
+[17:02:38.948]   imageSrc: '/images/collections/chairs/designer-series-cover.webp',
+[17:02:38.948]   isLocalImage: true
+[17:02:38.948] }
+[17:02:39.560] Attempting to load image: {
+[17:02:39.560]   imageUrl: '/images/collections/desks/standing-desk-cover.webp',
+[17:02:39.560]   imageSrc: '/images/collections/desks/standing-desk-cover.webp',
+[17:02:39.560]   isLocalImage: true
+[17:02:39.560] }
+[17:02:39.652] [HospitalFurnitureSeriesPage] params.seriesId: patient-care
+[17:02:39.745] [HospitalFurnitureSeriesPage] params.seriesId: patient-care
+[17:02:39.848] [HospitalFurnitureSeriesPage] params.seriesId: patient-room
+[17:02:39.848] [HospitalFurnitureSeriesPage] params.seriesId: patient-room
+[17:02:41.147] Attempting to load image: {
+[17:02:41.148]   imageUrl: '/images/collections/hospital-furniture/patient-care-cover.webp',
+[17:02:41.151]   imageSrc: '/images/collections/hospital-furniture/patient-care-cover.webp',
+[17:02:41.152]   isLocalImage: true
+[17:02:41.152] }
+[17:02:41.152] Attempting to load image: {
+[17:02:41.152]   imageUrl: '/images/collections/hospital-furniture/patient-room-cover.webp',
+[17:02:41.153]   imageSrc: '/images/collections/hospital-furniture/patient-room-cover.webp',
+[17:02:41.153]   isLocalImage: true
+[17:02:41.153] }
+[17:02:41.153] 
    Generating static pages (17/35) 
-[16:22:54.296] Attempting to load image: {
-[16:22:54.297]   imageUrl: '/images/fresh-vegetables-flat-lay-healthy-lifestyle.jpg',
-[16:22:54.297]   imageSrc: '/images/fresh-vegetables-flat-lay-healthy-lifestyle.jpg',
-[16:22:54.297]   isLocalImage: true
-[16:22:54.298] }
-[16:22:54.298] Attempting to load image: {
-[16:22:54.299]   imageUrl: '/images/wepik-export-20230426125449.png',
-[16:22:54.300]   imageSrc: '/images/wepik-export-20230426125449.png',
-[16:22:54.300]   isLocalImage: true
-[16:22:54.300] }
-[16:22:54.300] Attempting to load image: {
-[16:22:54.300]   imageUrl: '/images/zach-inglis-t0A2NCMhXRQ-unsplash.jpg',
-[16:22:54.301]   imageSrc: '/images/zach-inglis-t0A2NCMhXRQ-unsplash.jpg',
-[16:22:54.301]   isLocalImage: true
-[16:22:54.301] }
-[16:22:54.306] Attempting to load image: {
-[16:22:54.306]   imageUrl: '/images/chairs/designer-series/cover.jpg',
-[16:22:54.306]   imageSrc: '/images/chairs/designer-series/cover.jpg',
-[16:22:54.306]   isLocalImage: true
-[16:22:54.306] }
-[16:22:54.306] Attempting to load image: {
-[16:22:54.307]   imageUrl: '/images/fresh-vegetables-flat-lay-healthy-lifestyle.jpg',
-[16:22:54.307]   imageSrc: '/images/fresh-vegetables-flat-lay-healthy-lifestyle.jpg',
-[16:22:54.307]   isLocalImage: true
-[16:22:54.307] }
-[16:22:54.308] Attempting to load image: {
-[16:22:54.308]   imageUrl: '/images/wepik-export-20230426125449.png',
-[16:22:54.308]   imageSrc: '/images/wepik-export-20230426125449.png',
-[16:22:54.308]   isLocalImage: true
-[16:22:54.308] }
-[16:22:54.309] Attempting to load image: {
-[16:22:54.309]   imageUrl: '/images/zach-inglis-t0A2NCMhXRQ-unsplash.jpg',
-[16:22:54.309]   imageSrc: '/images/zach-inglis-t0A2NCMhXRQ-unsplash.jpg',
-[16:22:54.309]   isLocalImage: true
-[16:22:54.309] }
-[16:22:54.310] Attempting to load image: {
-[16:22:54.310]   imageUrl: '/images/chairs/designer-series/cover.jpg',
-[16:22:54.310]   imageSrc: '/images/chairs/designer-series/cover.jpg',
-[16:22:54.310]   isLocalImage: true
-[16:22:54.311] }
-[16:22:56.035] Attempting to load image: {
-[16:22:56.036]   imageUrl: '/images/collections/modular-furniture/office-modules-cover.webp',
-[16:22:56.036]   imageSrc: '/images/collections/modular-furniture/office-modules-cover.webp',
-[16:22:56.036]   isLocalImage: true
-[16:22:56.036] }
-[16:22:56.036] Attempting to load image: {
-[16:22:56.036]   imageUrl: '/images/collections/modular-furniture/reception-counters-cover.webp',
-[16:22:56.036]   imageSrc: '/images/collections/modular-furniture/reception-counters-cover.webp',
-[16:22:56.036]   isLocalImage: true
-[16:22:56.036] }
-[16:22:56.159] 
+[17:02:41.557] Attempting to load image: {
+[17:02:41.558]   imageUrl: '/images/fresh-vegetables-flat-lay-healthy-lifestyle.jpg',
+[17:02:41.558]   imageSrc: '/images/fresh-vegetables-flat-lay-healthy-lifestyle.jpg',
+[17:02:41.558]   isLocalImage: true
+[17:02:41.559] }
+[17:02:41.559] Attempting to load image: {
+[17:02:41.559]   imageUrl: '/images/wepik-export-20230426125449.png',
+[17:02:41.559]   imageSrc: '/images/wepik-export-20230426125449.png',
+[17:02:41.559]   isLocalImage: true
+[17:02:41.559] }
+[17:02:41.560] Attempting to load image: {
+[17:02:41.560]   imageUrl: '/images/zach-inglis-t0A2NCMhXRQ-unsplash.jpg',
+[17:02:41.560]   imageSrc: '/images/zach-inglis-t0A2NCMhXRQ-unsplash.jpg',
+[17:02:41.560]   isLocalImage: true
+[17:02:41.560] }
+[17:02:41.561] Attempting to load image: {
+[17:02:41.561]   imageUrl: '/images/chairs/designer-series/cover.jpg',
+[17:02:41.561]   imageSrc: '/images/chairs/designer-series/cover.jpg',
+[17:02:41.561]   isLocalImage: true
+[17:02:41.561] }
+[17:02:41.561] Attempting to load image: {
+[17:02:41.562]   imageUrl: '/images/fresh-vegetables-flat-lay-healthy-lifestyle.jpg',
+[17:02:41.562]   imageSrc: '/images/fresh-vegetables-flat-lay-healthy-lifestyle.jpg',
+[17:02:41.562]   isLocalImage: true
+[17:02:41.562] }
+[17:02:41.562] Attempting to load image: {
+[17:02:41.563]   imageUrl: '/images/wepik-export-20230426125449.png',
+[17:02:41.563]   imageSrc: '/images/wepik-export-20230426125449.png',
+[17:02:41.563]   isLocalImage: true
+[17:02:41.563] }
+[17:02:41.563] Attempting to load image: {
+[17:02:41.563]   imageUrl: '/images/zach-inglis-t0A2NCMhXRQ-unsplash.jpg',
+[17:02:41.564]   imageSrc: '/images/zach-inglis-t0A2NCMhXRQ-unsplash.jpg',
+[17:02:41.564]   isLocalImage: true
+[17:02:41.564] }
+[17:02:41.564] Attempting to load image: {
+[17:02:41.564]   imageUrl: '/images/chairs/designer-series/cover.jpg',
+[17:02:41.565]   imageSrc: '/images/chairs/designer-series/cover.jpg',
+[17:02:41.565]   isLocalImage: true
+[17:02:41.565] }
+[17:02:42.354] Attempting to load image: {
+[17:02:42.354]   imageUrl: '/images/collections/modular-furniture/office-modules-cover.webp',
+[17:02:42.354]   imageSrc: '/images/collections/modular-furniture/office-modules-cover.webp',
+[17:02:42.354]   isLocalImage: true
+[17:02:42.354] }
+[17:02:42.354] Attempting to load image: {
+[17:02:42.354]   imageUrl: '/images/collections/modular-furniture/reception-counters-cover.webp',
+[17:02:42.355]   imageSrc: '/images/collections/modular-furniture/reception-counters-cover.webp',
+[17:02:42.355]   isLocalImage: true
+[17:02:42.355] }
+[17:02:42.494] 
    Generating static pages (26/35) 
-[16:22:56.171] [RackingSystemsSeriesPage] params.seriesId: heavy-duty-racking
-[16:22:56.171] [RackingSystemsSeriesPage] params.seriesId: heavy-duty-racking
-[16:22:56.221] [RackingSystemsSeriesPage] params.seriesId: pallet-racks
-[16:22:56.222] [RackingSystemsSeriesPage] params.seriesId: pallet-racks
-[16:22:56.620] Attempting to load image: {
-[16:22:56.621]   imageUrl: '/images/collections/racking-systems/heavy-duty-racking-cover.webp',
-[16:22:56.621]   imageSrc: '/images/collections/racking-systems/heavy-duty-racking-cover.webp',
-[16:22:56.621]   isLocalImage: true
-[16:22:56.622] }
-[16:22:56.622] Attempting to load image: {
-[16:22:56.623]   imageUrl: '/images/collections/racking-systems/pallet-racks-cover.webp',
-[16:22:56.623]   imageSrc: '/images/collections/racking-systems/pallet-racks-cover.webp',
-[16:22:56.623]   isLocalImage: true
-[16:22:56.623] }
-[16:22:56.681] [SchoolFurnitureSeriesPage] params.seriesId: classroom-essentials
-[16:22:56.682] [SchoolFurnitureSeriesPage] params.seriesId: classroom-essentials
-[16:22:56.790] [SchoolFurnitureSeriesPage] params.seriesId: classroom-seating
-[16:22:56.790] [SchoolFurnitureSeriesPage] params.seriesId: classroom-seating
-[16:22:57.193] Attempting to load image: {
-[16:22:57.193]   imageUrl: '/images/collections/school-furniture/classroom-essentials-cover.webp',
-[16:22:57.194]   imageSrc: '/images/collections/school-furniture/classroom-essentials-cover.webp',
-[16:22:57.194]   isLocalImage: true
-[16:22:57.194] }
-[16:22:57.194] Attempting to load image: {
-[16:22:57.194]   imageUrl: '/images/collections/school-furniture/classroom-seating-cover.webp',
-[16:22:57.194]   imageSrc: '/images/collections/school-furniture/classroom-seating-cover.webp',
-[16:22:57.194]   isLocalImage: true
-[16:22:57.194] }
-[16:22:57.609] Attempting to load image: {
-[16:22:57.609]   imageUrl: '/images/collections/storage-solutions/metal-storages-cover.webp',
-[16:22:57.609]   imageSrc: '/images/collections/storage-solutions/metal-storages-cover.webp',
-[16:22:57.609]   isLocalImage: true
-[16:22:57.609] }
-[16:22:57.666] 
+[17:02:42.519] [RackingSystemsSeriesPage] params.seriesId: heavy-duty-racking
+[17:02:42.520] [RackingSystemsSeriesPage] params.seriesId: heavy-duty-racking
+[17:02:42.675] [RackingSystemsSeriesPage] params.seriesId: pallet-racks
+[17:02:42.675] [RackingSystemsSeriesPage] params.seriesId: pallet-racks
+[17:02:43.313] Attempting to load image: {
+[17:02:43.314]   imageUrl: '/images/collections/racking-systems/heavy-duty-racking-cover.webp',
+[17:02:43.314]   imageSrc: '/images/collections/racking-systems/heavy-duty-racking-cover.webp',
+[17:02:43.315]   isLocalImage: true
+[17:02:43.315] }
+[17:02:43.315] Attempting to load image: {
+[17:02:43.315]   imageUrl: '/images/collections/racking-systems/pallet-racks-cover.webp',
+[17:02:43.315]   imageSrc: '/images/collections/racking-systems/pallet-racks-cover.webp',
+[17:02:43.316]   isLocalImage: true
+[17:02:43.316] }
+[17:02:43.340] [SchoolFurnitureSeriesPage] params.seriesId: classroom-essentials
+[17:02:43.342] [SchoolFurnitureSeriesPage] params.seriesId: classroom-essentials
+[17:02:43.394] [SchoolFurnitureSeriesPage] params.seriesId: classroom-seating
+[17:02:43.394] [SchoolFurnitureSeriesPage] params.seriesId: classroom-seating
+[17:02:43.780] Attempting to load image: {
+[17:02:43.780]   imageUrl: '/images/collections/school-furniture/classroom-essentials-cover.webp',
+[17:02:43.780]   imageSrc: '/images/collections/school-furniture/classroom-essentials-cover.webp',
+[17:02:43.781]   isLocalImage: true
+[17:02:43.781] }
+[17:02:43.781] Attempting to load image: {
+[17:02:43.781]   imageUrl: '/images/collections/school-furniture/classroom-seating-cover.webp',
+[17:02:43.781]   imageSrc: '/images/collections/school-furniture/classroom-seating-cover.webp',
+[17:02:43.781]   isLocalImage: true
+[17:02:43.781] }
+[17:02:44.165] Attempting to load image: {
+[17:02:44.165]   imageUrl: '/images/collections/storage-solutions/metal-storages-cover.webp',
+[17:02:44.166]   imageSrc: '/images/collections/storage-solutions/metal-storages-cover.webp',
+[17:02:44.167]   isLocalImage: true
+[17:02:44.167] }
+[17:02:44.250] 
  ✓ Generating static pages (35/35) 
-[16:22:57.892]    Finalizing page optimization ...
-[16:22:57.894]    Collecting build traces ...
-[16:23:00.671] RangeError: Maximum call stack size exceeded
-[16:23:00.671]     at RegExp.exec (<anonymous>)
-[16:23:00.673]     at create (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:18889)
-[16:23:00.673]     at create (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:18918)
-[16:23:00.673]     at create (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:18918)
-[16:23:00.673]     at parse.fastpaths (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:18997)
-[16:23:00.673]     at picomatch.makeRe (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:21635)
-[16:23:00.673]     at picomatch (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:19637)
-[16:23:00.673]     at /vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:19294
-[16:23:00.673]     at Array.map (<anonymous>)
-[16:23:00.673]     at picomatch (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:19286)
-[16:23:00.729] Error: Command "npm run build" exited with 1
-[16:23:01.412] 
-[16:23:04.438] Exiting build container
+[17:02:44.503]    Finalizing page optimization ...
+[17:02:44.504]    Collecting build traces ...
+[17:02:46.925] RangeError: Maximum call stack size exceeded
+[17:02:46.925]     at RegExp.exec (<anonymous>)
+[17:02:46.925]     at create (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:18889)
+[17:02:46.925]     at create (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:18918)
+[17:02:46.925]     at create (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:18918)
+[17:02:46.925]     at parse.fastpaths (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:18997)
+[17:02:46.925]     at picomatch.makeRe (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:21635)
+[17:02:46.925]     at picomatch (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:19637)
+[17:02:46.925]     at /vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:19294
+[17:02:46.925]     at Array.map (<anonymous>)
+[17:02:46.925]     at picomatch (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:19286)
+[17:02:46.986] Error: Command "npm run build" exited with 1
+[17:02:47.344] 
+[17:02:50.553] Exiting build container

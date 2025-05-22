@@ -3,8 +3,7 @@
 /**
  * @type {import('next').NextConfig}
  **/
-const nextConfig = {
-  images: {
+const nextConfig = {  images: {
     domains: [
       'steelmade-products.cdn.com'
     ],
@@ -16,7 +15,7 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   experimental: {
-    optimizeCss: true,
+    // optimizeCss: true, // Disabled to prevent Maximum call stack size exceeded error
     optimizePackageImports: ['@radix-ui/react-icons'],
   },
   reactStrictMode: true,
