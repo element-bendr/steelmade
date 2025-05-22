@@ -3,31 +3,32 @@
 /**
  * @type {import('next').NextConfig}
  **/
-const nextConfig = {  
-  images: {
+const nextConfig = {    images: {
     domains: [
       'steelmade-products.cdn.com'
     ],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    deviceSizes: [640, 1080, 1920], // Simplified device sizes
+    imageSizes: [32, 96, 256], // Simplified image sizes
     formats: ['image/webp'],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   experimental: {
-    // optimizeCss: true, // Disabled to prevent Maximum call stack size exceeded error
+    // All experimental features disabled to prevent build errors
+    // optimizeCss: true,
     optimizePackageImports: ['@radix-ui/react-icons'],
-    webpackBuildWorker: true // Enable for better handling of complex builds
-  },
-  reactStrictMode: true,
-  swcMinify: true,  webpack: (config, { isServer }) => {
+    // webpackBuildWorker: true
+  },  reactStrictMode: true,
+  swcMinify: true,
+  // Simplified webpack config
+  webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack']
     });
     return config;
-  },  
+  },
   // Simplified redirects to avoid regex complexity issues
   async redirects() {
     return [
