@@ -1,8 +1,9 @@
+// filepath: e:\steelmadewebsite\app\chairs\page.tsx
 import { Suspense } from "react";
 import { Metadata } from "next";
 import { getSeriesForCategory } from "@/lib/api/products";
-import ProductCategoryPageLayout from "@/components/products/ProductCategoryPageLayout";
 import ProductGridSkeleton from "@/components/products/ProductGridSkeleton";
+import ChairsSeriesComponent from "@/components/products/ChairsSeriesComponent";
 
 // Revalidate every hour
 export const revalidate = 3600;
@@ -33,16 +34,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function ChairsPage() {
-  // This data fetch will be streamed with Suspense
-  const seriesData = await getSeriesForCategory("chairs");
-
-  const pageTitle = "Chairs";
-  const pageDescription = "Explore our diverse collection of high-quality chairs, designed for comfort, style, and durability. Find the perfect seating solution for your home or office.";  const breadcrumbItems = [
-    { name: "Home", item: "/" },
-    { name: "Chairs", item: "/chairs" }
-  ];
-
+export default function ChairsPage() {
   return (
     <main className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-4">Office Chairs</h1>
@@ -51,14 +43,9 @@ export default async function ChairsPage() {
         style, and durability. Find the perfect seating solution for your home or office.
       </p>
       
-      {/* Use Suspense for streaming the chair series data */}      <Suspense fallback={<ProductGridSkeleton items={8} />}>
-        <ProductCategoryPageLayout
-          category="chairs"
-          seriesData={seriesData}
-          pageTitle={pageTitle}
-          pageDescription={pageDescription}
-          breadcrumbItems={breadcrumbItems}
-        />
+      {/* Use Suspense for streaming the chair series data */}
+      <Suspense fallback={<ProductGridSkeleton items={8} />}>
+        <ChairsSeriesComponent />
       </Suspense>
     </main>
   );

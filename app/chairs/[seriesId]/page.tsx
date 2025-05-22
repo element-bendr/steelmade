@@ -4,6 +4,11 @@ import { default as ProductSeriesPage } from "@/components/products/ProductSerie
 import { getSeriesById, getAllSeries, getRevalidateTime, getSeriesProducts } from "@/lib/services/product-service"
 import { getImageUrl } from "@/lib/utils/image-utils"
 
+// Route segment config for performance optimization
+export const dynamic = 'auto'
+export const dynamicParams = true
+export const revalidate = 3600 // Revalidate at most every hour
+
 interface ChairSeriesPageProps {
   params: {
     seriesId: string
@@ -83,5 +88,3 @@ export async function generateStaticParams() {
     seriesId,
   }))
 }
-
-export const revalidate = getRevalidateTime()

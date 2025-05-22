@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import type { ProductData } from '@/types/products'
 import type { ProductCategory } from '@/types/collections'
 
@@ -9,7 +9,7 @@ export function useProducts(category: ProductCategory, seriesId: string) {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     setIsLoading(true)
     setError(null)
     try {
@@ -22,11 +22,11 @@ export function useProducts(category: ProductCategory, seriesId: string) {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [category, seriesId])
 
   useEffect(() => {
     fetchProducts()
-  }, [category, seriesId, fetchProducts]) // Added fetchProducts to the dependency array
+  }, [fetchProducts]) 
 
   return { products, isLoading, error, refetch: fetchProducts }
 }

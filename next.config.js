@@ -1,16 +1,27 @@
 // @ts-check
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
+  register: true,
+  skipWaiting: true
+});
+
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 
 /**
  * @type {import('next').NextConfig}
  **/
-const nextConfig = {    images: {
+const nextConfig = {    
+  images: {
     domains: [
       'steelmade-products.cdn.com'
     ],
     deviceSizes: [640, 1080, 1920], // Simplified device sizes
     imageSizes: [32, 96, 256], // Simplified image sizes
-    formats: ['image/webp'],
-    minimumCacheTTL: 60,
+    formats: ['image/webp', 'image/avif'], // Add AVIF support for better compression
+    minimumCacheTTL: 86400, // Increase cache TTL to 24 hours for better performance
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
@@ -19,8 +30,12 @@ const nextConfig = {    images: {
     // optimizeCss: true,
     optimizePackageImports: ['@radix-ui/react-icons'],
     // webpackBuildWorker: true
-  },  reactStrictMode: true,
+  },    reactStrictMode: true,
   swcMinify: true,
+  output: 'standalone', // Creates a standalone build that's optimized for production
+  // Enable HTTP/2 for improved performance
+  compress: true,
+  poweredByHeader: false,
   // Simplified webpack config
   webpack: (config) => {
     config.module.rules.push({
@@ -28,9 +43,13 @@ const nextConfig = {    images: {
       use: ['@svgr/webpack']
     });
     return config;
-  },
-  // Simplified redirects to avoid regex complexity issues
+  },  
+  // Temporarily disable all redirects to fix the build issue
   async redirects() {
+    return []
+    
+    // Original redirects - re-enable after fixing build issues
+    /*
     return [
       {
         source: '/collections/:path*',
@@ -43,7 +62,8 @@ const nextConfig = {    images: {
         permanent: true
       }
     ]
+    */
   }
 };
 
-module.exports = nextConfig;
+module.exports = withBundleAnalyzer(withPWA(nextConfig));

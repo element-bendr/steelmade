@@ -1,10 +1,31 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { addHttp2ServerPush } from "./middleware/http2-push";
 
 export function middleware(request: NextRequest) {
-  // Only apply to /admin routes
-  if (!request.nextUrl.pathname.startsWith("/admin")) {
-    return NextResponse.next();
+  const { pathname } = request.nextUrl;
+  
+  // Handle redirects for collections and products paths
+  if (pathname.startsWith('/collections/')) {
+    // Create a new URL object using the current URL
+    const url = new URL(request.url);
+    // Update the pathname
+    url.pathname = pathname.replace('/collections/', '/');
+    return NextResponse.redirect(url, { status: 301 });
+  }
+  
+  if (pathname.startsWith('/products/')) {
+    // Create a new URL object using the current URL
+    const url = new URL(request.url);
+    // Update the pathname
+    url.pathname = pathname.replace('/products/', '/');
+    return NextResponse.redirect(url, { status: 301 });
+  }
+  // Only apply auth logic to /admin routes
+  if (!pathname.startsWith("/admin")) {
+    const response = NextResponse.next();
+    // Apply HTTP/2 Server Push for non-admin routes
+    return addHttp2ServerPush(request, response);
   }
   const authHeader = request.headers.get("authorization");
   
@@ -36,11 +57,13 @@ export function middleware(request: NextRequest) {
       },
     });
   }
-
   // If authorized, continue
-  return NextResponse.next();
+  const response = NextResponse.next();
+  
+  // Apply HTTP/2 Server Push optimization on HTML responses
+  return addHttp2ServerPush(request, response);
 }
 
 export const config = {
-  matcher: "/admin/:path*",
+  matcher: ["/admin/:path*", "/collections/:path*", "/products/:path*"],
 };

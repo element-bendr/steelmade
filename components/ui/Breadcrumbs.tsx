@@ -1,5 +1,4 @@
-'use client';
-
+// Converted to a server component for better performance
 import Link from 'next/link';
 import { HomeIcon, ChevronRightIcon } from '@heroicons/react/24/solid'; // Using Heroicons
 
