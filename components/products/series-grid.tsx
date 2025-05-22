@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SeriesMetadata } from '@/types';
+import { SeriesMetadata } from '@/types/index';
 import { getImageUrl } from '@/lib/utils/image-utils';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';

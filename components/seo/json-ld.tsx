@@ -2,7 +2,7 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
-import { BreadcrumbItem } from "@/types";
+import { BreadcrumbItem } from "@/../types"; // Adjusted path to point to the root types.ts
 
 interface JsonLdProps {
   data: Record<string, any> | Record<string, any>[];
