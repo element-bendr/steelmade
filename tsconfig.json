@@ -24,15 +24,9 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/app/*": ["./app/*"],
-      "@/components/*": ["./components/*"],
-      "@/hooks/*": ["./hooks/*"],
-      "@/lib/*": ["./lib/*"],
-      "@/public/*": ["./public/*"],
-      "@/scripts/*": ["./scripts/*"],
-      "@/types/*": ["./types/*"],
-      "@/pages/*": ["./pages/*"],
-      "@/src/*": ["./src/*"]
+      "@/*": [
+        "./*"
+      ]
     },
     "forceConsistentCasingInFileNames": true
   },

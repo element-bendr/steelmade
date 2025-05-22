@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SeriesMetadata } from '@/types/index';
+import { SeriesMetadata } from '@/types';
 import { getImageUrl } from '@/lib/utils/image-utils';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -42,12 +42,12 @@ export const SeriesGrid: React.FC<SeriesGridProps> = ({ seriesData, productType 
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-2 mb-4">
-                {series.features.slice(0, 3).map((feature, index) => (
+                {series.features && Array.isArray(series.features) && series.features.slice(0, 3).map((feature, index) => (
                   <Badge key={index} variant="outline" className="px-2 py-1 text-xs">
                     {feature}
                   </Badge>
                 ))}
-                {series.features.length > 3 && (
+                {series.features && Array.isArray(series.features) && series.features.length > 3 && (
                   <Badge variant="secondary" className="px-2 py-1 text-xs">
                     +{series.features.length - 3} more
                   </Badge>

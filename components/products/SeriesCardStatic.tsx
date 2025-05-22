@@ -33,10 +33,10 @@ export function SeriesCardStatic({ series, className }: SeriesCardStaticProps) {
         </CardHeader>
         <CardContent className="flex-grow">
           <div className="flex flex-wrap gap-2">
-            {series.features && Array.isArray(series.features) && series.features.map((feature) => (
-              <Badge
-                key={feature}
-                variant="secondary"
+            {series.features.map((feature) => (
+              <Badge 
+                key={feature} 
+                variant="secondary" 
                 className="morphism-surface bg-white/50 text-text-muted"
               >
                 {feature}

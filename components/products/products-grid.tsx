@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ProductData } from '@/types/index';
+import { ProductData } from '@/types';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
@@ -30,7 +30,7 @@ export const ProductsGrid: React.FC<ProductsGridProps> = ({
         <div key={productId} className="rounded-xl overflow-hidden border group hover:shadow-lg transition-all duration-300">
           <div className="relative h-64">
             <Image
-              src={product.images && product.images.length > 0 ? product.images[0].url : "/images/placeholder.jpg"}
+              src={product.images[0] || "/images/placeholder.jpg"}
               alt={product.name}
               fill
               className="object-cover group-hover:scale-105 transition-all duration-500"
