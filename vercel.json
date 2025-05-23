@@ -1,7 +1,6 @@
-{
-  "build": {
+{  "build": {
     "env": {
-      "NODE_OPTIONS": "--max-old-space-size=512 --optimize-for-size"
+      "NODE_OPTIONS": "--max-old-space-size=512 --max-semi-space-size=64"
     }
   },
   "headers": [
